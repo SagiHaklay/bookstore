@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 
@@ -18,8 +19,8 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [
     CommonModule,
     RouterModule
-],
-  providers: [AuthService],
+  ],
+  providers: [AuthService, AuthGuard],
   exports: [
     RouterModule,
     PageNotFoundComponent, 

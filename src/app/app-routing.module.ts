@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'order',
-    loadChildren: () => import('./modules/order/order-routing.module').then(m => m.OrderRoutingModule)
+    loadChildren: () => import('./modules/order/order-routing.module').then(m => m.OrderRoutingModule),
+    canMatch: [AuthGuard]
   },
   { path: '**', component: PageNotFoundComponent }
 ];

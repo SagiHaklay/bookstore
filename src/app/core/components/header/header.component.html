@@ -2,7 +2,9 @@
 <nav class="main-navbar">
     <a routerLink="/product" routerLinkActive="active">Books</a>
     <a routerLink="/order/cart" routerLinkActive="active">Cart</a>
-    <a routerLink="/user" routerLinkActive="active">Account</a>
-    <a routerLink="/admin" routerLinkActive="active">Admin</a>
-    
+    <a *ngIf="isLoggedIn" routerLink="/user" routerLinkActive="active">Account</a>
+    <a *ngIf="!isLoggedIn" routerLink="/user/login" routerLinkActive="active">Login</a>
+    <a *ngIf="!isLoggedIn" routerLink="/user/signup" routerLinkActive="active">Signup</a>
+    <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Admin</a>
+    <a *ngIf="!isAdmin" routerLink="/admin/login" routerLinkActive="active">Login As Admin</a>
 </nav>
