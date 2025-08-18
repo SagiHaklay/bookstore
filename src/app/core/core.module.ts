@@ -2,18 +2,30 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { HeaderComponent } from './components/header/header.component';
+import { RouterModule } from '@angular/router';
+import { FooterComponent } from './components/footer/footer.component';
+
 
 
 
 @NgModule({
   declarations: [
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
-    CommonModule
-  ],
+    CommonModule,
+    RouterModule
+],
   providers: [AuthService],
-  exports: [PageNotFoundComponent]
+  exports: [
+    RouterModule,
+    PageNotFoundComponent, 
+    HeaderComponent, 
+    FooterComponent
+  ]
 })
 export class CoreModule { 
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
