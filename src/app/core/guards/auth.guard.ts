@@ -9,16 +9,21 @@ export class AuthGuard implements CanActivate, CanMatch {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-    return this.guard();
+    // console.log(route);
+    // console.log(state);
+    return this.guard(state.url === '/admin/dashboard');
   }
   canMatch(
     route: Route,
     segments: UrlSegment[]): MaybeAsync<GuardResult> {
     return this.guard();
   }
-  private guard() {
+  private guard(isAdminAccess: boolean = false) {
     return this.authService.token.pipe(take(1), map((token) => {
       if (token === null) {
+        if (isAdminAccess) {
+          return this.router.createUrlTree(['admin', 'login']);
+        }
         return this.router.createUrlTree(['user', 'login']);
       }
       return true;

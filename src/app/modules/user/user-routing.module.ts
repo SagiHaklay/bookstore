@@ -4,12 +4,13 @@ import { UserLoginPageComponent } from './pages/user-login-page/user-login-page.
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-page.component';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { loggedOutGuard } from './guards/logged-out.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'account', pathMatch: 'full' },
-  { path: 'login', component: UserLoginPageComponent },
+  { path: 'login', component: UserLoginPageComponent, canActivate: [loggedOutGuard] },
   { path: 'account', component: UserAccountPageComponent, canActivate: [AuthGuard] },
-  { path: 'signup', component: UserSignupPageComponent }
+  { path: 'signup', component: UserSignupPageComponent, canActivate: [loggedOutGuard] }
 ];
 
 @NgModule({

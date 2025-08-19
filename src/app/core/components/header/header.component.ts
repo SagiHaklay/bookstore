@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAdmin = false;
   tokenSub!: Subscription;
   isAdminSub!: Subscription;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.tokenSub = this.authService.token.subscribe((token) => {
@@ -22,9 +23,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAdmin = isAdmin;
     });
     // this.authService.mockSignup(false);
-    // this.authService.login('', '');
+    // this.authService.login('user', 'password');
+    // this.authService.login('admin', 'admin');
   }
-
+  onClickLogOut() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
   ngOnDestroy(): void {
     this.tokenSub.unsubscribe();
     this.isAdminSub.unsubscribe();

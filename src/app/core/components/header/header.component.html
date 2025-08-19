@@ -7,4 +7,5 @@
     <a *ngIf="!isLoggedIn" routerLink="/user/signup" routerLinkActive="active">Signup</a>
     <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Admin</a>
     <a *ngIf="!isAdmin" routerLink="/admin/login" routerLinkActive="active">Login As Admin</a>
+    <a *ngIf="isLoggedIn" (click)="onClickLogOut()">Log Out</a>
 </nav>
