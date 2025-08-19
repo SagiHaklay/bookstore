@@ -4,6 +4,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
 import { AdminGuard } from './guards/admin.guard';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -14,7 +15,8 @@ import { AdminGuard } from './guards/admin.guard';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    SharedModule
   ],
   providers: [AdminGuard]
 })

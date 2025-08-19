@@ -4,6 +4,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserLoginPageComponent } from './pages/user-login-page/user-login-page.component';
 import { UserAccountPageComponent } from './pages/user-account-page/user-account-page.component';
 import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-page.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -15,7 +16,8 @@ import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-pa
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    SharedModule
   ]
 })
 export class UserModule { }
