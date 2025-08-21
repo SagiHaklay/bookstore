@@ -1,0 +1,32 @@
+.account-container {
+    display: grid;
+    grid-template-columns: auto 10rem;
+    grid-template-rows: 3rem auto;
+    grid-template-areas: 
+        'title delete'
+        'account account';
+    padding: 1rem;
+    .title {
+        grid-area: title;
+        margin: 0;
+        padding: 0;
+    }
+    .delete-btn-container {
+        grid-area: delete;
+    }
+    .account {
+        grid-area: account;
+    }
+}
+.account {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+
+    .data-field, .btn-container {
+        display: flex;
+        gap: 0.3rem;
+    }
+    
+}

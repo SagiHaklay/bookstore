@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserAccount } from '../models/user-account.model';
 import { Observable, of, throwError } from 'rxjs';
 import { UserData } from '../models/user-data.model';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Injectable()
 export class UserService {
@@ -9,7 +10,7 @@ export class UserService {
     { id: '1', username: 'admin', password: 'admin', email: 'admin@gmail.com', isAdmin: true},
     { id: '2', username: 'user', password: 'password', email: 'user@gmail.com', isAdmin: false},
   ];
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   getUser(id: string): Observable<UserAccount> {
     const user = this._mockUsers.find((u) => u.id === id);
@@ -29,19 +30,25 @@ export class UserService {
       password
     };
     this._mockUsers.push(newUser);
+    this.authService.signUp(newUser);
+    return of(newUser);
   }
 
   updateUser(id: string, data: UserData) {
     const index = this._mockUsers.findIndex((u) => u.id === id);
     if (index >= 0) {
       this._mockUsers[index] = {...this._mockUsers[index], ...data};
+      return of(this._mockUsers[index]);
     }
+    return throwError(() => new Error(`User #${id} does not exist.`));
   }
 
   deleteUser(id: string) {
     const index = this._mockUsers.findIndex((u) => u.id === id);
     if (index >= 0) {
-      this._mockUsers.splice(index, 1);
+      const [deletedUser] = this._mockUsers.splice(index, 1);
+      return of(deletedUser);
     }
+    return throwError(() => new Error(`User #${id} does not exist.`));
   }
 }

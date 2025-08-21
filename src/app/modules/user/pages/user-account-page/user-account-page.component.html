@@ -1,1 +1,29 @@
-<p>user-account-page works!</p>
+<div *ngIf="userAccount !== null" class="account-container">
+    <h1 class="title">Account Details</h1>
+    <div class="account">
+        <div class="data-field">
+            <label>ID:</label>
+            <span>#{{userAccount.id}}</span>
+        </div>
+        <div class="data-field">
+            <label>Username:</label>
+            <span>{{userAccount.username}}</span>
+        </div>
+        <div class="data-field">
+            <label>E-mail:</label>
+            <span>{{userAccount.email}}</span>
+        </div>
+        <div class="btn-container">
+            <button class="btn" type="button">Edit</button>
+            <button class="btn" type="button">Change Password</button>
+        </div>
+        
+    </div>
+    <div class="delete-btn-container">
+        <button class="btn" type="button">Delete Account</button>
+    </div>
+</div>
+
+<div *ngIf="userAccount === null">
+    User not found.
+</div>

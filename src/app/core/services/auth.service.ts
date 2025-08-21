@@ -16,7 +16,7 @@ export class AuthService {
   ];
   constructor() { }
 
-  login(username: string, password: string): Observable<AuthResponse> {
+  login(username: string, password: string, checkAdmin: boolean = false): Observable<AuthResponse> {
     // const storedToken = localStorage.getItem('token');
     // if (storedToken !== null) {
     //   this._token.next(storedToken);
@@ -30,21 +30,26 @@ export class AuthService {
     const user = this._mockUsers.find(u => u.username === username && u.password === password);
     if (user) {
       this._token.next(user.token);
-      this._isAdmin.next(user.isAdmin);
+      this._isAdmin.next(checkAdmin && user.isAdmin);
       this._currentUserId.next(user.id);
+      localStorage.setItem('token', user.token);
+      localStorage.setItem('userId', user.id);
       return of({
         token: user.token,
-        isAdmin: user.isAdmin,
+        isAdmin: checkAdmin && user.isAdmin,
         userId: user.id
       });
     }
     // REST API login
-    return throwError(() => new Error('Unauthorized'));
+    return throwError(() => new Error('Username and/or password are incorrect!'));
   }
-
+  signUp(userData: any) {
+    this._mockUsers.push(userData);
+  }
   logout() {
     this._token.next(null);
     this._isAdmin.next(false);
     this._currentUserId.next(null);
+    localStorage.clear();
   }
 }

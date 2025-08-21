@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
   onFormSubmit() {
     const username = this.usernameInput?.value;
     const password = this.passwordInput?.value;
-    this.authService.login(username, password).subscribe({
+    this.authService.login(username, password, this.checkAdmin).subscribe({
       next: (res) => {
         if (this.checkAdmin && !res.isAdmin) {
           this.loginFailedMessage = 'User is not an admin!';
