@@ -14,16 +14,19 @@
             <span>{{userAccount.email}}</span>
         </div>
         <div class="btn-container">
-            <button class="btn" type="button">Edit</button>
+            <button class="btn" type="button" (click)="onClickEdit()">Edit</button>
             <button class="btn" type="button">Change Password</button>
         </div>
         
     </div>
     <div class="delete-btn-container">
-        <button class="btn" type="button">Delete Account</button>
+        <button class="btn" type="button" (click)="onClickDeleteAccount()">Delete Account</button>
     </div>
 </div>
-
+<app-modal *ngIf="userAccount !== null && showEditModal" (close)="onModalClose()">
+    <h3>Edit Account Details</h3>
+    <app-user-form [user]="userAccount" (userSubmit)="onEditSubmit($event)"></app-user-form>
+</app-modal>
 <div *ngIf="userAccount === null">
     User not found.
 </div>
