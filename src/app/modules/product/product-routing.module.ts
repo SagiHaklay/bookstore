@@ -4,6 +4,7 @@ import { ProductsPageComponent } from './pages/products-page/products-page.compo
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ProductInfoPageComponent } from './pages/product-info-page/product-info-page.component';
 import { productsResolver } from '../../core/resolvers/products.resolver';
+import { productInfoResolver } from './resolvers/product-info.resolver';
 
 const routes: Routes = [
   { 
@@ -15,7 +16,13 @@ const routes: Routes = [
     }
   },
   { path: 'search', component: SearchPageComponent },
-  { path: ':id', component: ProductInfoPageComponent }
+  { 
+    path: ':id', 
+    component: ProductInfoPageComponent,
+    resolve: {
+      info: productInfoResolver
+    }
+  }
 ];
 
 @NgModule({

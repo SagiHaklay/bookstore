@@ -11,7 +11,8 @@ export class ProductService {
       id: '1',
       name: 'Lord of the Rings: Fellowship of the Ring',
       author: 'J. R. R. Tolkien',
-      price: 50
+      price: 50,
+      discount: 0.1
     },
     {
       id: '2',
