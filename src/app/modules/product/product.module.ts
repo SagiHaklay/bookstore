@@ -5,6 +5,7 @@ import { ProductsPageComponent } from './pages/products-page/products-page.compo
 import { ProductInfoPageComponent } from './pages/product-info-page/product-info-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { SharedModule } from '../../shared/shared.module';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 
@@ -12,7 +13,8 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     ProductsPageComponent,
     ProductInfoPageComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,

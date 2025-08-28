@@ -1,6 +1,4 @@
 <div class="products-container">
-    <a *ngFor="let product of products" [routerLink]="product.id">
-        <app-product-item [item]="product" ></app-product-item>
-    </a>
+    <app-pagination [products]="products"></app-pagination>
     
 </div>
