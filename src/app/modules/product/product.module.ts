@@ -4,6 +4,7 @@ import { ProductRoutingModule } from './product-routing.module';
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
 import { ProductInfoPageComponent } from './pages/product-info-page/product-info-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -15,7 +16,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
   ],
   imports: [
     CommonModule,
-    ProductRoutingModule
-  ]
+    ProductRoutingModule,
+    SharedModule
+]
 })
 export class ProductModule { }

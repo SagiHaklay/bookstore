@@ -6,7 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { AuthGuard } from './guards/auth.guard';
-
+import { ProductService } from "./services/product.service";
 
 
 
@@ -20,7 +20,7 @@ import { AuthGuard } from './guards/auth.guard';
     CommonModule,
     RouterModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ProductService],
   exports: [
     RouterModule,
     PageNotFoundComponent, 

@@ -4,6 +4,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ProductItemComponent } from './components/product-item/product-item.component';
 
 
 
@@ -11,12 +12,18 @@ import { ModalComponent } from './components/modal/modal.component';
   declarations: [
     LoginFormComponent,
     UserFormComponent,
-    ModalComponent
+    ModalComponent,
+    ProductItemComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule
   ],
-  exports: [LoginFormComponent, UserFormComponent, ModalComponent]
+  exports: [
+    LoginFormComponent, 
+    UserFormComponent, 
+    ModalComponent,
+    ProductItemComponent
+  ]
 })
 export class SharedModule { }

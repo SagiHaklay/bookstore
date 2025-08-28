@@ -1,0 +1,11 @@
+<div class="info-container">
+    <div class="image-container">
+        <img *ngIf="item.imageUrl" [src]="item.imageUrl" />
+    </div>
+    <div class="product-data">
+        <div class="product-name">{{item.name}}</div>
+        <div class="author">{{item.author}}</div>
+    </div>
+</div>
+
+<div class="price">{{item.price}}NIS</div>

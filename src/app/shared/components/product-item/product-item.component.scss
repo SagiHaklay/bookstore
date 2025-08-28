@@ -1,0 +1,33 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    width: 100%;
+    height: 3rem;
+    border-bottom: 1px solid gray;
+}
+.info-container {
+    display: flex;
+    height: 100%;
+    gap: 1rem;
+    align-items: center;
+}
+.image-container {
+    height: 100%;
+    width: 3rem;
+    background-color: gray;
+}
+.product-data {
+    display: flex;
+    flex-direction: column;
+
+    .product-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    .author {
+        font-size: 0.8rem;
+        color: gray;
+    }
+}
