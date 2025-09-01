@@ -22,6 +22,7 @@ import { ProductInfoComponent } from './components/product-info/product-info.com
     ReactiveFormsModule
   ],
   exports: [
+    ReactiveFormsModule,
     LoginFormComponent, 
     UserFormComponent, 
     ModalComponent,

@@ -1,1 +1,3 @@
-<p>search-page works!</p>
+<app-search-bar (searchSubmit)="onSearch($event)"></app-search-bar>
+<h4>Search results for {{searchQuery}}</h4>
+<app-pagination [products]="searchResults"></app-pagination>

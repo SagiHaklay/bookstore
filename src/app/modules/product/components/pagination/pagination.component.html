@@ -2,9 +2,35 @@
     <app-product-item [item]="product" ></app-product-item>
 </a>
 <div *ngIf="pageCount >= 2" class="navigation">
-    <a *ngIf="currentPageNum > 1" routerLink="../1">First</a>
-    <a *ngIf="currentPageNum > 1" [routerLink]="['..', currentPageNum - 1]">Previous</a>
-    <a *ngFor="let pageNum of pageWindow" [routerLink]="['..', pageNum]" routerLinkActive="curr-page">{{pageNum}}</a>
-    <a *ngIf="currentPageNum < pageCount" [routerLink]="['..', currentPageNum + 1]">Next</a>
-    <a *ngIf="currentPageNum < pageCount" [routerLink]="['..', pageCount]">Last</a>
+    <a 
+        *ngIf="currentPageNum > 1" 
+        routerLink="./" 
+        [queryParams]="{page: 1}" 
+        queryParamsHandling="merge"
+    >First</a>
+    <a 
+        *ngIf="currentPageNum > 1" 
+        routerLink="./" 
+        [queryParams]="{page: currentPageNum - 1}" 
+        queryParamsHandling="merge"
+    >Previous</a>
+    <a 
+        *ngFor="let pageNum of pageWindow" routerLink="./" 
+        [queryParams]="{page: pageNum}" 
+        queryParamsHandling="merge" 
+        
+        [ngClass]="{'curr-page': pageNum === currentPageNum}"
+    >{{pageNum}}</a>
+    <a 
+        *ngIf="currentPageNum < pageCount" 
+        routerLink="./" 
+        [queryParams]="{page: currentPageNum + 1}" 
+        queryParamsHandling="merge"
+    >Next</a>
+    <a 
+        *ngIf="currentPageNum < pageCount" 
+        routerLink="./" 
+        [queryParams]="{page: pageCount}" 
+        queryParamsHandling="merge"
+    >Last</a>
 </div>

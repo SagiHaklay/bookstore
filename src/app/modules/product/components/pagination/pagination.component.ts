@@ -1,13 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Book } from '../../../../core/models/book.model';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss'
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
   @Input() products: Book[] = [];
   pageCapacity: number = 1;
   currentPageNum = 1;
@@ -15,15 +16,21 @@ export class PaginationComponent implements OnInit {
   pageCount: number = 1;
   pageWindowOffset = 2;
   pageWindow: number[] = [];
+  queryParamsSub!: Subscription;
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.pageCount = Math.ceil(this.products.length / this.pageCapacity);
-    this.route.params.subscribe((params) => {
-      this.currentPageNum = params['pageNum'];
+    this.queryParamsSub = this.route.queryParams.subscribe((params) => {
+      this.currentPageNum = parseInt(params['page']) || 1;
       this.updatePage(this.currentPageNum);
     });
     
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.pageCount = Math.ceil(this.products.length / this.pageCapacity);
+    // this.currentPageNum = 1;
+    this.updatePage(this.currentPageNum);
   }
 
   updatePage(pageNum: number) {
@@ -36,5 +43,9 @@ export class PaginationComponent implements OnInit {
     for (let i = windowStart; i <= windowEnd; i++) {
       this.pageWindow.push(i);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.queryParamsSub.unsubscribe();
   }
 }

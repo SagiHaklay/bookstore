@@ -1,4 +1,5 @@
 <div class="products-container">
+    <app-search-bar (searchSubmit)="onSearch($event)"></app-search-bar>
     <app-pagination [products]="products"></app-pagination>
     
 </div>

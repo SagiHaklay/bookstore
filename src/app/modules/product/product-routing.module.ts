@@ -9,17 +9,26 @@ import { productInfoResolver } from '../../shared/resolvers/product-info.resolve
 const routes: Routes = [
   { 
     path: '', 
-    redirectTo: 'page/1', 
-    pathMatch: 'full', 
-  },
-  {
-    path: 'page/:pageNum',
     component: ProductsPageComponent, 
+    pathMatch: 'full', 
     resolve: {
       products: productsResolver
     }
   },
-  { path: 'search', component: SearchPageComponent },
+  // {
+  //   path: 'page/:pageNum',
+  //   component: ProductsPageComponent, 
+  //   resolve: {
+  //     products: productsResolver
+  //   }
+  // },
+  { 
+    path: 'search', 
+    component: SearchPageComponent,
+    resolve: {
+      products: productsResolver
+    }
+  },
   { 
     path: ':id', 
     component: ProductInfoPageComponent,
