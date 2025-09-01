@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { RedirectCommand, ResolveFn, Router } from '@angular/router';
-import { ProductService } from '../../../core/services/product.service';
-import { Book } from '../../../core/models/book.model';
+import { ProductService } from '../../core/services/product.service';
+import { Book } from '../../core/models/book.model';
 import { catchError, of } from 'rxjs';
 
 export const productInfoResolver: ResolveFn<Book | RedirectCommand> = (route, state) => {

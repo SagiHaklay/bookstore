@@ -1,8 +1,10 @@
 <a *ngFor="let product of currentPageContent" [routerLink]="product.id">
     <app-product-item [item]="product" ></app-product-item>
 </a>
-<div class="navigation">
-    <a>Previous</a>
-    <a>{{currentPageNum}}</a>
-    <a>Next</a>
+<div *ngIf="pageCount >= 2" class="navigation">
+    <a *ngIf="currentPageNum > 1" routerLink="../1">First</a>
+    <a *ngIf="currentPageNum > 1" [routerLink]="['..', currentPageNum - 1]">Previous</a>
+    <a *ngFor="let pageNum of pageWindow" [routerLink]="['..', pageNum]" routerLinkActive="curr-page">{{pageNum}}</a>
+    <a *ngIf="currentPageNum < pageCount" [routerLink]="['..', currentPageNum + 1]">Next</a>
+    <a *ngIf="currentPageNum < pageCount" [routerLink]="['..', pageCount]">Last</a>
 </div>

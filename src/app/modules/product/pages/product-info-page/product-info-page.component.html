@@ -1,22 +1,4 @@
-<div class="container">
-<h2 class="title">{{product.name}}</h2>
-<div class="info">
-    <div class="info-item">
-        <label for="">ID:</label>
-        <span>{{product.id}}</span>
-    </div>
-    <div class="info-item">
-        <label for="">Author:</label>
-        <span>{{product.author}}</span>
-    </div>
-    <div class="info-item">
-        <label for="">Publisher:</label>
-        <span>{{product.publisher}}</span>
-    </div>
-</div>
-<div class="image-container">
-    <img *ngIf="product.imageUrl" [src]="product.imageUrl" />
-</div>
+<app-product-info [product]="product"></app-product-info>
 <div class="order-options">
     <div class="info-item">
         <label for="">Price:</label>
@@ -31,5 +13,4 @@
         <span>{{product.price * (1 - product.discount)}}NIS</span>
     </div>
     <button class="submit-btn">Add To Cart</button>
-</div>
 </div>

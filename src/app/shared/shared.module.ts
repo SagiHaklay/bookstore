@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
+import { ProductInfoComponent } from './components/product-info/product-info.component';
 
 
 
@@ -13,7 +14,8 @@ import { ProductItemComponent } from './components/product-item/product-item.com
     LoginFormComponent,
     UserFormComponent,
     ModalComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    ProductInfoComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { ProductItemComponent } from './components/product-item/product-item.com
     LoginFormComponent, 
     UserFormComponent, 
     ModalComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    ProductInfoComponent
   ]
 })
 export class SharedModule { }
