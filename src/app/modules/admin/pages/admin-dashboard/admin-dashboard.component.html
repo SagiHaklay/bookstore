@@ -1,1 +1,3 @@
-<p>admin-dashboard works!</p>
+<a *ngFor="let product of products" [routerLink]="['..', 'product', product.id]">
+    <app-product-item [item]="product" ></app-product-item>
+</a>

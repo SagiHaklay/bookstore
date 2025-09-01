@@ -3,18 +3,17 @@ import { Book } from '../../../../core/models/book.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.scss'
+  selector: 'app-product-edit-page',
+  templateUrl: './product-edit-page.component.html',
+  styleUrl: './product-edit-page.component.scss'
 })
-export class AdminDashboardComponent implements OnInit {
-  products!: Book[];
+export class ProductEditPageComponent implements OnInit {
+  product!: Book;
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
-      this.products = data['products'];
+      this.product = data['product'];
     });
   }
-
 }
