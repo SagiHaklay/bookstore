@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../../../core/models/book.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookData } from '../../../../core/models/book-data.model';
 import { ProductService } from '../../../../core/services/product.service';
 
@@ -12,7 +12,8 @@ import { ProductService } from '../../../../core/services/product.service';
 export class ProductEditPageComponent implements OnInit {
   product!: Book;
   displayEditForm = false;
-  constructor(private route: ActivatedRoute, private productService: ProductService) {}
+  displayDeleteDialogBox = false;
+  constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
@@ -31,5 +32,17 @@ export class ProductEditPageComponent implements OnInit {
       this.product = updated;
       this.displayEditForm = false;
     });
+  }
+  onClickDelete() {
+    this.displayDeleteDialogBox = true;
+  }
+  onConfirmDelete() {
+    this.productService.deleteProduct(this.product.id).subscribe(() => {
+      this.displayDeleteDialogBox = false;
+      this.router.navigate(['/admin', 'dashboard']);
+    });
+  }
+  onCloseDelete() {
+    this.displayDeleteDialogBox = false;
   }
 }

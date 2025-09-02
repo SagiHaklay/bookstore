@@ -6,6 +6,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { ProductInfoComponent } from './components/product-info/product-info.component';
+import { DialogBoxModalComponent } from './components/dialog-box-modal/dialog-box-modal.component';
 
 
 
@@ -15,7 +16,8 @@ import { ProductInfoComponent } from './components/product-info/product-info.com
     UserFormComponent,
     ModalComponent,
     ProductItemComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
+    DialogBoxModalComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { ProductInfoComponent } from './components/product-info/product-info.com
     UserFormComponent, 
     ModalComponent,
     ProductItemComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
+    DialogBoxModalComponent
   ]
 })
 export class SharedModule { }

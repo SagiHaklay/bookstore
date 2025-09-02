@@ -9,3 +9,4 @@
     <h4>Add New Book</h4>
     <app-product-form (productSubmit)="onSubmitAddProduct($event)"></app-product-form>
 </app-modal>
+<app-dialog-box-modal *ngIf="displayAddSuccessMessage" message="Book added successfully" (close)="onCloseAddMessage()"></app-dialog-box-modal>

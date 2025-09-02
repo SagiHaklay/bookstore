@@ -12,6 +12,7 @@ import { ProductService } from '../../../../core/services/product.service';
 export class AdminDashboardComponent implements OnInit {
   products!: Book[];
   displayAddProductForm = false;
+  displayAddSuccessMessage = false;
   constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
@@ -26,9 +27,13 @@ export class AdminDashboardComponent implements OnInit {
   onCloseAddProduct() {
     this.displayAddProductForm = false;
   }
+  onCloseAddMessage() {
+    this.displayAddSuccessMessage = false;
+  }
   onSubmitAddProduct(productData: BookData) {
     this.productService.addProduct(productData).subscribe(() => {
       this.displayAddProductForm = false;
+      this.displayAddSuccessMessage = true;
     });
   }
 
