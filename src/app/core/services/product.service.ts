@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Book } from "../models/book.model";
 import { BookData } from "../models/book-data.model";
-import { Observable, of, throwError } from 'rxjs';
+import { map, Observable, of, throwError } from 'rxjs';
 
 
 @Injectable()
@@ -12,7 +12,7 @@ export class ProductService {
       name: 'Lord of the Rings: Fellowship of the Ring',
       author: 'J. R. R. Tolkien',
       price: 50,
-      discount: 0.1
+      discount: 10
     },
     {
       id: '2',
@@ -42,5 +42,24 @@ export class ProductService {
     };
     this._mockBooks.push(newBook);
     return of(newBook);
+  }
+  updateProduct(id: string, data: BookData) {
+    const index = this._mockBooks.findIndex(book => book.id === id);
+    if (index < 0) {
+      return throwError(() => new Error(`book with id ${id} not found`));
+    }
+    this._mockBooks[index] = {
+      ...this._mockBooks[index],
+      ...data
+    };
+    return of(this._mockBooks[index]);
+  }
+  deleteProduct(id: string) {
+    const index = this._mockBooks.findIndex(book => book.id === id);
+    if (index < 0) {
+      return throwError(() => new Error(`book with id ${id} not found`));
+    }
+    const [deleted] = this._mockBooks.splice(index, 1);
+    return of(deleted);
   }
 }

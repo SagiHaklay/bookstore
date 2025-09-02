@@ -1,3 +1,11 @@
+<h1>Admin Dashboard</h1>
+<div class="actions">
+    <button class="btn" (click)="onClickAddProduct()">Add New Book</button>
+</div>
 <a *ngFor="let product of products" [routerLink]="['..', 'product', product.id]">
     <app-product-item [item]="product" ></app-product-item>
 </a>
+<app-modal *ngIf="displayAddProductForm" (close)="onCloseAddProduct()">
+    <h4>Add New Book</h4>
+    <app-product-form (productSubmit)="onSubmitAddProduct($event)"></app-product-form>
+</app-modal>

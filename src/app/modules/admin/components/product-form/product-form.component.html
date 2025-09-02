@@ -1,0 +1,28 @@
+<form class="form" [formGroup]="productForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-group">
+        <label for="">Name:</label>
+        <input type="text" formControlName="bookName" />
+        <div *ngIf="productForm.get('bookName')?.invalid && productForm.get('bookName')?.touched" class="error-msg">Name required!</div>
+    </div>
+    <div class="form-group">
+        <label for="">Author:</label>
+        <input type="text" formControlName="author" />
+        <div *ngIf="productForm.get('author')?.invalid && productForm.get('author')?.touched" class="error-msg">Author required!</div>
+    </div>
+    <div class="form-group">
+        <label for="">Publisher:</label>
+        <input type="text" formControlName="publisher" />
+        <div *ngIf="productForm.get('publisher')?.invalid && productForm.get('publisher')?.touched" class="error-msg">Invalid publisher</div>
+    </div>
+    <div class="form-group">
+        <label for="">Price (NIS):</label>
+        <input type="number" formControlName="price" />
+        <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="error-msg">{{getPriceErrorMessage()}}</div>
+    </div>
+    <div class="form-group">
+        <label for="">Discount (%):</label>
+        <input type="number" formControlName="discount" />
+        <div *ngIf="productForm.get('discount')?.invalid && productForm.get('discount')?.touched" class="error-msg">Discount percent must be between 0 and 100!</div>
+    </div>
+    <button class="submit-btn" [disabled]="productForm.invalid" type="submit">Submit</button>
+</form>

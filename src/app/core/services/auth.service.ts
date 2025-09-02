@@ -14,7 +14,10 @@ export class AuthService {
     { username: 'admin', password: 'admin', isAdmin: true, token: 'admintoken', id: '1' },
     { username: 'user', password: 'password', isAdmin: false, token: 'token', id: '2' }
   ];
-  constructor() { }
+  constructor() { 
+    this._token.next(localStorage.getItem('token'));
+    this._currentUserId.next(localStorage.getItem('userId'));
+  }
 
   login(username: string, password: string, checkAdmin: boolean = false): Observable<AuthResponse> {
     // const storedToken = localStorage.getItem('token');
@@ -51,5 +54,12 @@ export class AuthService {
     this._isAdmin.next(false);
     this._currentUserId.next(null);
     localStorage.clear();
+  }
+  checkIsAdmin() {
+    const userId = localStorage.getItem('userId');
+    const user = this._mockUsers.find((u) => u.id === userId);
+    const isUserAdmin = user != null && user.isAdmin;
+    this._isAdmin.next(isUserAdmin);
+    return of(isUserAdmin);
   }
 }

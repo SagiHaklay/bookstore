@@ -12,6 +12,14 @@
         <label for="">Publisher:</label>
         <span>{{product.publisher}}</span>
     </div>
+    <div class="info-item">
+        <label for="">Price:</label>
+        <span>{{product.price}}NIS</span>
+    </div>
+    <div class="info-item">
+        <label for="">Discount:</label>
+        <span>{{product.discount}}</span>
+    </div>
 </div>
 <div class="image-container">
     <img *ngIf="product.imageUrl" [src]="product.imageUrl" />

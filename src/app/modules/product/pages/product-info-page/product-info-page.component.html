@@ -6,11 +6,11 @@
     </div>
     <div *ngIf="product.discount" class="info-item">
         <label for="">Discount:</label>
-        <span>{{product.discount * 100}}%</span>
+        <span>{{product.discount}}%</span>
     </div>
     <div *ngIf="product.discount" class="info-item">
         <label for="">Total:</label>
-        <span>{{product.price * (1 - product.discount)}}NIS</span>
+        <span>{{product.price * (100 - product.discount) / 100}}NIS</span>
     </div>
     <button class="submit-btn">Add To Cart</button>
 </div>

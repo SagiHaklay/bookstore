@@ -6,6 +6,7 @@ import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-pa
 import { AdminGuard } from './guards/admin.guard';
 import { SharedModule } from '../../shared/shared.module';
 import { ProductEditPageComponent } from './pages/product-edit-page/product-edit-page.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 
 
@@ -14,6 +15,7 @@ import { ProductEditPageComponent } from './pages/product-edit-page/product-edit
     AdminDashboardComponent,
     AdminLoginPageComponent,
     ProductEditPageComponent,
+    ProductFormComponent,
   ],
   imports: [
     CommonModule,

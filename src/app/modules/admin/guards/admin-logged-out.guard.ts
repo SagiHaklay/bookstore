@@ -6,7 +6,7 @@ import { map, take } from 'rxjs';
 export const adminLoggedOutGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  return authService.isAdmin.pipe(take(1), map((isAdmin) => {
+  return authService.checkIsAdmin().pipe(take(1), map((isAdmin) => {
     if (isAdmin) {
       
       return router.createUrlTree(['admin', 'dashboard']);

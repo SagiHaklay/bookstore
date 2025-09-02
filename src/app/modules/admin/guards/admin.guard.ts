@@ -9,7 +9,7 @@ export class AdminGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-    return this.authService.isAdmin.pipe(take(1), map((isAdmin) => {
+    return this.authService.checkIsAdmin().pipe(take(1), map((isAdmin) => {
       if (isAdmin) {
         return true;
       }
