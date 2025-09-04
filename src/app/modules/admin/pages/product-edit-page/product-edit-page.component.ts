@@ -12,7 +12,9 @@ import { ProductService } from '../../../../core/services/product.service';
 export class ProductEditPageComponent implements OnInit {
   product!: Book;
   displayEditForm = false;
-  displayDeleteDialogBox = false;
+  displayDialogBox = false;
+  isConfirmDelete = false;
+  dialogBoxMessage: string = '';
   constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
@@ -31,18 +33,25 @@ export class ProductEditPageComponent implements OnInit {
     this.productService.updateProduct(this.product.id, productData).subscribe((updated) => {
       this.product = updated;
       this.displayEditForm = false;
+      this.dialogBoxMessage = 'Product edited successfully';
+      this.isConfirmDelete = false;
+      this.displayDialogBox = true;
     });
   }
   onClickDelete() {
-    this.displayDeleteDialogBox = true;
+    this.dialogBoxMessage = `Are you sure you want to delete book #${this.product.id}?`;
+    this.isConfirmDelete = true;
+    this.displayDialogBox = true;
   }
   onConfirmDelete() {
     this.productService.deleteProduct(this.product.id).subscribe(() => {
-      this.displayDeleteDialogBox = false;
-      this.router.navigate(['/admin', 'dashboard']);
+      this.displayDialogBox = false;
+      this.router.navigate(['/admin', 'dashboard'], {
+        queryParams: {bookDeleted: true}
+      });
     });
   }
-  onCloseDelete() {
-    this.displayDeleteDialogBox = false;
+  onCloseDialogBox() {
+    this.displayDialogBox = false;
   }
 }

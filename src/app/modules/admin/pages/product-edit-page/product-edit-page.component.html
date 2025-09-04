@@ -8,9 +8,9 @@
     <app-product-form [productToEdit]="product" (productSubmit)="onEditFormSubmit($event)"></app-product-form>
 </app-modal>
 <app-dialog-box-modal 
-    *ngIf="displayDeleteDialogBox"
-    [isYesNo]="true" 
-    message="Are you sure you want to delete this book?"
-    (close)="onCloseDelete()"
+    *ngIf="displayDialogBox"
+    [isYesNo]="isConfirmDelete" 
+    [message]="dialogBoxMessage"
+    (close)="onCloseDialogBox()"
     (confirm)="onConfirmDelete()"
 ></app-dialog-box-modal>
