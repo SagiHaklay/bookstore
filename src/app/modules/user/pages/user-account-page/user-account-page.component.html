@@ -15,7 +15,7 @@
         </div>
         <div class="btn-container">
             <button class="btn" type="button" (click)="onClickEdit()">Edit</button>
-            <button class="btn" type="button">Change Password</button>
+            <button class="btn" type="button" (click)="onClickChangePassword()">Change Password</button>
         </div>
         
     </div>
@@ -23,10 +23,24 @@
         <button class="btn" type="button" (click)="onClickDeleteAccount()">Delete Account</button>
     </div>
 </div>
-<app-modal *ngIf="userAccount !== null && showEditModal" (close)="onModalClose()">
-    <h3>Edit Account Details</h3>
-    <app-user-form [user]="userAccount" (userSubmit)="onEditSubmit($event)"></app-user-form>
+<app-modal *ngIf="showModal" (close)="onModalClose()">
+    <div *ngIf="!isChangePassword">
+        <h3>Edit Account Details</h3>
+        <app-user-form [user]="userAccount" (userSubmit)="onEditSubmit($event)"></app-user-form>
+    </div>
+    <div *ngIf="isChangePassword">
+        <h3>Change Password</h3>
+        <app-change-password [oldPassword]="userAccount.password" (passwordSubmit)="onChangePasswordSubmit($event)"></app-change-password>
+    </div>
 </app-modal>
-<div *ngIf="userAccount === null">
+
+<!-- <div *ngIf="userAccount === null">
     User not found.
-</div>
+</div> -->
+<app-dialog-box-modal
+    *ngIf="displayDialogBox"
+    [message]="dialogBoxMessage"
+    [isYesNo]="isConfirmDelete"
+    (close)="onDialogBoxClose()"
+    (confirm)="onConfirmDelete()"
+></app-dialog-box-modal>

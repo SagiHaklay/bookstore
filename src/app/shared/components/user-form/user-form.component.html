@@ -15,7 +15,7 @@
             class="error-msg"
         >{{getEmailErrorMessage()}}</div>
     </div>
-    <div class="form-group">
+    <div *ngIf="includePassword" class="form-group">
         <label for="password">Password:</label>
         <input class="form-control" id="password" type="password" formControlName="password" />
         <div 
@@ -23,7 +23,7 @@
             class="error-msg"
         >Password required!</div>
     </div>
-    <div class="form-group">
+    <div *ngIf="includePassword" class="form-group">
         <label for="repeatPassword">Repeat Password:</label>
         <input class="form-control" id="repeatPassword" type="password" formControlName="repeatPassword" />
         <div 
@@ -31,6 +31,6 @@
             class="error-msg"
         >Password repeat required!</div>
     </div>
-    <div *ngIf="userForm.errors && userForm.errors['passwordRepeatError']" class="error-msg">Passwords must be identical!</div>
+    <div *ngIf="userForm.errors && userForm.errors['passwordRepeatError'] && userForm.get('repeatPassword')?.touched" class="error-msg">Passwords must be identical!</div>
     <button class="submit-btn" type="submit" [disabled]="userForm.invalid">Submit</button>
 </form>

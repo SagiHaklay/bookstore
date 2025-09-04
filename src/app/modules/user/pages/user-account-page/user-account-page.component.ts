@@ -11,9 +11,13 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrl: './user-account-page.component.scss'
 })
 export class UserAccountPageComponent implements OnInit {
-  userAccount: UserAccount | null = null;
+  userAccount!: UserAccount;
   editErrorMessage: string = '';
-  showEditModal = false;
+  showModal = false;
+  isChangePassword = false;
+  displayDialogBox = false;
+  dialogBoxMessage = '';
+  isConfirmDelete = false;
   constructor(
     private route: ActivatedRoute, 
     private userService: UserService, 
@@ -27,12 +31,16 @@ export class UserAccountPageComponent implements OnInit {
   }
 
   onClickEdit() {
-    this.showEditModal = true;
-    console.log('edit');
+    this.isChangePassword = false;
+    this.showModal = true;
+    // console.log('edit');
   }
-
+  onClickChangePassword() {
+    this.isChangePassword = true;
+    this.showModal = true;
+  }
   onModalClose() {
-    this.showEditModal = false;
+    this.showModal = false;
   }
 
   onEditSubmit(userData: UserData) {
@@ -40,7 +48,10 @@ export class UserAccountPageComponent implements OnInit {
       this.userService.updateUser(this.userAccount.id, userData).subscribe({
         next: (res) => {
           this.userAccount = res;
-          this.showEditModal = false;
+          this.showModal = false;
+          this.dialogBoxMessage = 'Account details edited successfully';
+          this.isConfirmDelete = false;
+          this.displayDialogBox = true;
         },
         error: (err: Error) => {
           this.editErrorMessage = err.message;
@@ -49,6 +60,14 @@ export class UserAccountPageComponent implements OnInit {
     }
   }
   onClickDeleteAccount() {
+    this.dialogBoxMessage = 'Are you sure you want to delete your account?';
+    this.isConfirmDelete = true;
+    this.displayDialogBox = true;
+  }
+  onDialogBoxClose() {
+    this.displayDialogBox = false;
+  }
+  onConfirmDelete() {
     if (this.userAccount !== null) {
       this.userService.deleteUser(this.userAccount.id).subscribe({
         next: () => {
@@ -60,6 +79,21 @@ export class UserAccountPageComponent implements OnInit {
         }
       });
     }
+  }
+
+  onChangePasswordSubmit(password: string) {
+    this.userService.updateUser(this.userAccount.id, {password}).subscribe({
+      next: (res) => {
+        this.userAccount = res;
+        this.showModal = false;
+        this.dialogBoxMessage = 'Password changed successfully';
+        this.isConfirmDelete = false;
+        this.displayDialogBox = true;
+      },
+      error: (err: Error) => {
+        this.editErrorMessage = err.message;
+      }
+    });
   }
 
 }

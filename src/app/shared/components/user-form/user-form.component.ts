@@ -9,8 +9,10 @@ import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Valida
 })
 export class UserFormComponent implements OnInit {
   @Input() user: UserData = { username: '', email: '', password: '' };
+  @Input() includePassword: boolean = false;
   @Output() userSubmit = new EventEmitter<UserData>();
   userForm!: FormGroup;
+  
 
   constructor(private fb: FormBuilder) {}
 
@@ -18,12 +20,15 @@ export class UserFormComponent implements OnInit {
     const options: AbstractControlOptions = {
       validators: [this.passwordRepeatValidator]
     };
-    this.userForm = this.fb.group({
+    const controls : any = {
       username: this.fb.control(this.user.username, [Validators.required]),
       email: this.fb.control(this.user.email, [Validators.required, Validators.email]),
-      password: this.fb.control('', [Validators.required]),
-      repeatPassword: this.fb.control('', [Validators.required])
-    }, options);
+    };
+    if (this.includePassword) {
+      controls.password = this.fb.control('', [Validators.required]);
+      controls.repeatPassword = this.fb.control('', [Validators.required]);
+    }
+    this.userForm = this.includePassword? this.fb.group(controls, options) : this.fb.group(controls);
     
   }
   passwordRepeatValidator(control: AbstractControl): ValidationErrors | null {
@@ -49,7 +54,7 @@ export class UserFormComponent implements OnInit {
   onFormSubmit() {
     this.user.username = this.userForm.get('username')?.value;
     this.user.email = this.userForm.get('email')?.value;
-    this.user.password = this.userForm.get('password')?.value;
+    this.user.password = this.includePassword? this.userForm.get('password')?.value : this.user.password;
     this.userSubmit.emit(this.user);
   }
 

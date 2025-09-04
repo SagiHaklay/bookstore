@@ -6,6 +6,7 @@ import { UserAccountPageComponent } from './pages/user-account-page/user-account
 import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { UserService } from './services/user.service';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 
@@ -13,7 +14,8 @@ import { UserService } from './services/user.service';
   declarations: [
     UserLoginPageComponent,
     UserAccountPageComponent,
-    UserSignupPageComponent
+    UserSignupPageComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

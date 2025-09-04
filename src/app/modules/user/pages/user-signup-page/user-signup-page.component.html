@@ -1,5 +1,5 @@
 <h2>Sign Up</h2>
-<app-user-form (userSubmit)="onUserSignUp($event)"></app-user-form>
+<app-user-form [includePassword]="true" (userSubmit)="onUserSignUp($event)"></app-user-form>
 <div *ngIf="errorMessage.length > 0" class="error-msg">
     {{errorMessage}}
 </div>
