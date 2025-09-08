@@ -12,5 +12,6 @@
         <label for="">Total:</label>
         <span>{{product.price * (100 - product.discount) / 100}}NIS</span>
     </div>
-    <button class="submit-btn">Add To Cart</button>
+    <button (click)="onClickAddToCart()" class="submit-btn">Add To Cart</button>
 </div>
+<app-dialog-box-modal *ngIf="showDialogBox" [message]="dialogBoxMessage" (close)="onCloseDialogBox()"></app-dialog-box-modal>

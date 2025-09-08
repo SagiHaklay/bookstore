@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductService } from "./services/product.service";
-import { ModalService } from './services/modal.service';
+import { CartService } from './services/cart.service';
 
 
 
@@ -21,7 +21,7 @@ import { ModalService } from './services/modal.service';
     CommonModule,
     RouterModule
   ],
-  providers: [AuthService, AuthGuard, ProductService, ModalService],
+  providers: [AuthService, AuthGuard, ProductService, CartService],
   exports: [
     RouterModule,
     PageNotFoundComponent, 

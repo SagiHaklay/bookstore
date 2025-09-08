@@ -20,7 +20,6 @@ const routes: Routes = [
   {
     path: 'order',
     loadChildren: () => import('./modules/order/order-routing.module').then(m => m.OrderRoutingModule),
-    canMatch: [AuthGuard]
   },
   { path: '**', component: PageNotFoundComponent }
 ];
