@@ -1,11 +1,29 @@
-<div class="logo">Bookstore</div>
-<nav class="main-navbar">
-    <a routerLink="/product" routerLinkActive="active">Books</a>
-    <a routerLink="/order/cart" routerLinkActive="active">Cart</a>
-    <a *ngIf="isLoggedIn" routerLink="/user" routerLinkActive="active">Account</a>
-    <a *ngIf="!isLoggedIn" routerLink="/user/login" routerLinkActive="active">Login</a>
-    <a *ngIf="!isLoggedIn" routerLink="/user/signup" routerLinkActive="active">Signup</a>
-    <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Admin</a>
-    <!-- <a *ngIf="!isAdmin" routerLink="/admin/login" routerLinkActive="active">Login As Admin</a> -->
-    <a *ngIf="isLoggedIn" (click)="onClickLogOut()">Log Out</a>
+
+<div class="main-header">
+    <div class="logo">Bookstore</div>
+    <nav class="main-navbar">
+        <a routerLink="/product" routerLinkActive="active">Books</a>
+        <a routerLink="/order/cart" routerLinkActive="active">Cart</a>
+        <a *ngIf="isLoggedIn" routerLink="/user" routerLinkActive="active">Account</a>
+        <a *ngIf="!isLoggedIn" routerLink="/user/login" routerLinkActive="active">Login</a>
+        <a *ngIf="!isLoggedIn" routerLink="/user/signup" routerLinkActive="active">Signup</a>
+        <a *ngIf="isAdmin" routerLink="/admin" routerLinkActive="active">Admin</a>
+        <!-- <a *ngIf="!isAdmin" routerLink="/admin/login" routerLinkActive="active">Login As Admin</a> -->
+        <a *ngIf="isLoggedIn" (click)="onClickLogOut()">Log Out</a>
+    </nav>
+    <button (click)="onToggleMobileNavbar()" [ngClass]="{'hamburger-btn': true, 'hamburger-btn-close': showMobileNavbar}">
+        <div class="line top"></div>
+        <div class="line middle"></div>
+        <div class="line bottom"></div>
+    </button>
+</div>
+<nav *ngIf="showMobileNavbar" class="mobile-navbar">
+    <a routerLink="/product" (click)="onClickMobileNavLink()" routerLinkActive="active">Books</a>
+    <a routerLink="/order/cart" (click)="onClickMobileNavLink()" routerLinkActive="active">Cart</a>
+    <a *ngIf="isLoggedIn" (click)="onClickMobileNavLink()" routerLink="/user" routerLinkActive="active">Account</a>
+    <a *ngIf="!isLoggedIn" (click)="onClickMobileNavLink()" routerLink="/user/login" routerLinkActive="active">Login</a>
+    <a *ngIf="!isLoggedIn" (click)="onClickMobileNavLink()" routerLink="/user/signup" routerLinkActive="active">Signup</a>
+    <a *ngIf="isAdmin" (click)="onClickMobileNavLink()" routerLink="/admin" routerLinkActive="active">Admin</a>
+        <!-- <a *ngIf="!isAdmin" routerLink="/admin/login" routerLinkActive="active">Login As Admin</a> -->
+    <a *ngIf="isLoggedIn" (click)="onClickLogOutMobile()">Log Out</a>
 </nav>

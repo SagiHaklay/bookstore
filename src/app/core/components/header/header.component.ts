@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAdmin = false;
   tokenSub!: Subscription;
   isAdminSub!: Subscription;
+  showMobileNavbar = false;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
@@ -30,8 +31,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout();
     this.router.navigate(['/']);
   }
+  onToggleMobileNavbar() {
+    this.showMobileNavbar = !this.showMobileNavbar;
+  }
   ngOnDestroy(): void {
     this.tokenSub.unsubscribe();
     this.isAdminSub.unsubscribe();
+  }
+  onClickMobileNavLink() {
+    this.showMobileNavbar = false;
+  }
+  onClickLogOutMobile() {
+    this.onClickLogOut();
+    this.onClickMobileNavLink();
   }
 }

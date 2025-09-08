@@ -1,19 +1,11 @@
 :host {
-    display: grid;
-    grid-template-columns: 7fr 3fr;
-    grid-template-rows: 3rem auto;
-    grid-template-areas: 
-        'title .'
-        'info image';
-    
+    display: flex;
+    flex-direction: column;
     
 }
 
-.title {
-    grid-area: title;
-}
+
 .image-container {
-    grid-area: image;
     background-color: gray;
     min-height: 10rem;
     img {
@@ -21,7 +13,8 @@
         height: 100%;
     }
 }
-.info-container {
+
+.info {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -30,7 +23,23 @@
         gap: 0.5rem;
     }
 }
-.info {
-    @extend .info-container;
-    grid-area: info;
+
+@media screen and (min-width: 720px) {
+    :host {
+        display: grid;
+        grid-template-columns: 7fr 3fr;
+        grid-template-rows: 3rem auto;
+        grid-template-areas: 
+            'title .'
+            'info image';
+    }
+    .title {
+        grid-area: title;
+    }
+    .info {
+        grid-area: info;
+    }
+    .image-container {
+        grid-area: image;
+    }
 }
