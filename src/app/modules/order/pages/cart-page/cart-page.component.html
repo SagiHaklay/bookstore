@@ -2,16 +2,32 @@
 <div *ngIf="cart.length === 0">
     Your cart is empty.
 </div>
+<form *ngIf="cart.length !== 0" class="form" [formGroup]="orderForm" (ngSubmit)="onCheckout()">
 <div class="cart-container">
     <div *ngFor="let item of cart" class="cart-item">
+        <button class="btn">Remove</button>
         <span>{{item.product.name}}</span>
         <div class="price-details">
-            <span>{{item.product.price}}</span>
+            <span [ngClass]="{'line-through': item.product.discount}">{{item.product.price}}</span>
+            <span *ngIf="item.product.discount">{{item.product.price * (100 - item.product.discount) / 100}}</span>
             <span>X</span>
             <span>{{item.quantity}}</span>
             <span>=</span>
-            <span>{{item.product.price * item.quantity}}NIS</span>
+            <span>{{getItemTotal(item)}}NIS</span>
         </div>
         
     </div>
+    <div class="order-item">
+        <span>Total:</span>
+        <span>{{getOrderTotal()}}NIS</span>
+    </div>
 </div>
+<button type="submit" class="submit-btn">Checkout</button>
+</form>
+<app-dialog-box-modal
+    *ngIf="showDialogBox"
+    message="You must be logged in to proceed with the order. Would you like to log in?"
+    [isYesNo]="true"
+    (confirm)="onConfirmLogin()"
+    (close)="onDialogBoxClose()"
+></app-dialog-box-modal>

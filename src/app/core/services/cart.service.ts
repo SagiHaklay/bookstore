@@ -65,4 +65,15 @@ export class CartService {
     this._mockCart.splice(removeIndex, 1);
     return this.getUserCart(userId);
   }
+  saveGuestCartToUser(userId: string) {
+    this._mockCart = this._mockCart.filter((item) => item.userId !== userId);
+    for (let cartItem of this._cartItems) {
+      this._mockCart.push({
+        userId,
+        ...cartItem
+      });
+    }
+    this.clearCart();
+    return this.getUserCart(userId);
+  }
 }

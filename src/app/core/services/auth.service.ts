@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { AuthResponse } from '../models/auth-response.model';
+import { CartService } from './cart.service';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     { username: 'admin', password: 'admin', isAdmin: true, token: 'admintoken', id: '1' },
     { username: 'user', password: 'password', isAdmin: false, token: 'token', id: '2' }
   ];
-  constructor() { 
+  constructor(private cartService: CartService) { 
     this._token.next(localStorage.getItem('token'));
     this._currentUserId.next(localStorage.getItem('userId'));
   }
@@ -37,6 +38,7 @@ export class AuthService {
       this._currentUserId.next(user.id);
       localStorage.setItem('token', user.token);
       localStorage.setItem('userId', user.id);
+      this.cartService.saveGuestCartToUser(user.id);
       return of({
         token: user.token,
         isAdmin: checkAdmin && user.isAdmin,
