@@ -16,6 +16,8 @@ export class CartPageComponent implements OnInit {
   userId: string | null = null;
   showDialogBox = false;
   orderForm!: FormGroup;
+  dialogBoxMessage: string = '';
+  isYesNo = false;
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
@@ -34,6 +36,8 @@ export class CartPageComponent implements OnInit {
   }
   onCheckout() {
     if (this.userId === null) {
+      this.isYesNo = true;
+      this.dialogBoxMessage = 'You must be logged in to proceed with the order. Would you like to log in?';
       this.showDialogBox = true;
     } else {
       this.cartService.placeOrder(this.userId).subscribe({
@@ -42,6 +46,9 @@ export class CartPageComponent implements OnInit {
         },
         error: (err: Error) => {
           console.error(err);
+          this.isYesNo = false;
+          this.dialogBoxMessage = err.message;
+          this.showDialogBox = true;
         }
       });
     }
@@ -67,6 +74,11 @@ export class CartPageComponent implements OnInit {
       this.cartService.removeFromUserCart(this.userId, this.cart[index].product.id).subscribe({
         next: () => {
           this.cart.splice(index, 1);
+        },
+        error: (err: Error) => {
+          this.isYesNo = false;
+          this.dialogBoxMessage = err.message;
+          this.showDialogBox = true;
         }
       });
     } else {

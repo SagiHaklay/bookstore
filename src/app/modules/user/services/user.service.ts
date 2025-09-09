@@ -13,7 +13,8 @@ export class UserService {
   constructor(private authService: AuthService) { }
 
   getUser(id: string): Observable<UserAccount> {
-    const user = this._mockUsers.find((u) => u.id === id);
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find((u: any) => u.id === id);
     if (user) {
       return of(user);
     }
@@ -29,24 +30,31 @@ export class UserService {
       email,
       password
     };
-    this._mockUsers.push(newUser);
-    this.authService.signUp(newUser);
+    // this._mockUsers.push(newUser);
+    // this.authService.signUp(newUser);
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
     return of(newUser);
   }
 
   updateUser(id: string, data: UserData) {
-    const index = this._mockUsers.findIndex((u) => u.id === id);
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const index = users.findIndex((u: any) => u.id === id);
     if (index >= 0) {
-      this._mockUsers[index] = {...this._mockUsers[index], ...data};
+      users[index] = {...users[index], ...data};
+      localStorage.setItem('users', JSON.stringify(users));
       return of(this._mockUsers[index]);
     }
     return throwError(() => new Error(`User #${id} does not exist.`));
   }
 
   deleteUser(id: string) {
-    const index = this._mockUsers.findIndex((u) => u.id === id);
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const index = users.findIndex((u: any) => u.id === id);
     if (index >= 0) {
-      const [deletedUser] = this._mockUsers.splice(index, 1);
+      const [deletedUser] = users.splice(index, 1);
+      localStorage.setItem('users', JSON.stringify(users));
       return of(deletedUser);
     }
     return throwError(() => new Error(`User #${id} does not exist.`));

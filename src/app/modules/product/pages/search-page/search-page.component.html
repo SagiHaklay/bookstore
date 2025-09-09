@@ -1,3 +1,4 @@
 <app-search-bar (searchSubmit)="onSearch($event)"></app-search-bar>
+<a [routerLink]="['..']">Back</a>
 <h4>Search results for {{searchQuery}}</h4>
 <app-pagination [products]="searchResults"></app-pagination>

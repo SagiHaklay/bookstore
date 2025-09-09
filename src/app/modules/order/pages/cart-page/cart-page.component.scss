@@ -26,8 +26,14 @@
 .price-details {
     display: flex;
     gap: 0.3rem;
+    flex-wrap: nowrap;
 }
 
 .line-through {
     text-decoration: line-through;
+}
+.item-header {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
 }

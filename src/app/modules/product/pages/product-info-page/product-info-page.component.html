@@ -1,3 +1,4 @@
+<a [routerLink]="['..']">Back</a>
 <app-product-info [product]="product"></app-product-info>
 <div class="order-options">
     <div class="info-item">
@@ -30,4 +31,5 @@
     </form>
     
 </div>
+
 <app-dialog-box-modal *ngIf="showDialogBox" [message]="dialogBoxMessage" (close)="onCloseDialogBox()"></app-dialog-box-modal>

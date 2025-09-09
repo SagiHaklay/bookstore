@@ -25,7 +25,8 @@ export class CartService {
     return this._cartItems.slice();
   }
   getUserCart(userId: string) {
-    const userCart: CartItem[] = this._mockCart.filter((item) => item.userId === userId).map((item) => {
+    const carts = JSON.parse(localStorage.getItem('carts') || '[]');
+    const userCart: CartItem[] = carts.filter((item: any) => item.userId === userId).map((item: any) => {
       return {
         product: item.product,
         quantity: item.quantity
@@ -41,10 +42,12 @@ export class CartService {
     this._cartSubject.next(this._cartItems.slice());
   }
   addToUserCart(userId: string, cartItem: CartItem) {
-    this._mockCart.push({
+    const carts = JSON.parse(localStorage.getItem('carts') || '[]');
+    carts.push({
       userId,
       ...cartItem
     });
+    localStorage.setItem('carts', JSON.stringify(carts));
     return of(cartItem);
   }
   clearCart() {
@@ -52,7 +55,9 @@ export class CartService {
     this._cartSubject.next([]);
   }
   placeOrder(userId: string) {
-    this._mockCart = this._mockCart.filter((item) => item.userId !== userId);
+    let carts = JSON.parse(localStorage.getItem('carts') || '[]');
+    carts = carts.filter((item: any) => item.userId !== userId);
+    localStorage.setItem('carts', JSON.stringify(carts));
     return of({});
   }
   removeFromCart(productId: string) {
@@ -61,18 +66,22 @@ export class CartService {
     this._cartSubject.next(this._cartItems.slice());
   }
   removeFromUserCart(userId: string, productId: string) {
-    const removeIndex = this._mockCart.findIndex((item) => item.product.id === productId && item.userId === userId);
-    this._mockCart.splice(removeIndex, 1);
+    const carts = JSON.parse(localStorage.getItem('carts') || '[]');
+    const removeIndex = carts.findIndex((item: any) => item.product.id === productId && item.userId === userId);
+    carts.splice(removeIndex, 1);
+    localStorage.setItem('carts', JSON.stringify(carts));
     return this.getUserCart(userId);
   }
   saveGuestCartToUser(userId: string) {
-    this._mockCart = this._mockCart.filter((item) => item.userId !== userId);
+    let carts = JSON.parse(localStorage.getItem('carts') || '[]');
+    carts = carts.filter((item: any) => item.userId !== userId);
     for (let cartItem of this._cartItems) {
-      this._mockCart.push({
+      carts.push({
         userId,
         ...cartItem
       });
     }
+    localStorage.setItem('carts', JSON.stringify(carts));
     this.clearCart();
     return this.getUserCart(userId);
   }

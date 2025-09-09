@@ -5,8 +5,10 @@
 <form *ngIf="cart.length !== 0" class="form" [formGroup]="orderForm" (ngSubmit)="onCheckout()">
 <div class="cart-container">
     <div *ngFor="let item of cart; let i = index" class="cart-item">
-        <button type="button" (click)="onRemoveCartItem(i)" class="btn">Remove</button>
-        <span>{{item.product.name}}</span>
+        <div class="item-header">
+            <button type="button" (click)="onRemoveCartItem(i)" class="btn">Remove</button>
+            <span>{{item.product.name}}</span>
+        </div>
         <div class="price-details">
             <span [ngClass]="{'line-through': item.product.discount}">{{item.product.price}}</span>
             <span *ngIf="item.product.discount">{{item.product.price * (100 - item.product.discount) / 100}}</span>
@@ -26,8 +28,8 @@
 </form>
 <app-dialog-box-modal
     *ngIf="showDialogBox"
-    message="You must be logged in to proceed with the order. Would you like to log in?"
-    [isYesNo]="true"
+    [message]="dialogBoxMessage"
+    [isYesNo]="isYesNo"
     (confirm)="onConfirmLogin()"
     (close)="onDialogBoxClose()"
 ></app-dialog-box-modal>

@@ -16,8 +16,8 @@ export class UserSignupPageComponent {
     const {username, password, email} = userData;
     if (username && password && email) {
       this.userService.addUser(username, password, email).subscribe({
-        next: (res) => {
-          console.log(res);
+        next: () => {
+          // console.log(res);
           this.router.navigate(['user', 'login']);
         },
         error: (err: Error) => {

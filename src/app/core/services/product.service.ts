@@ -21,14 +21,17 @@ export class ProductService {
       price: 42
     }
   ];
-  constructor() { }
+  constructor() { 
+    localStorage.setItem('products', JSON.stringify(this._mockBooks));
+  }
 
   getProducts(): Observable<Book[]> {
     return of(this._mockBooks);
   }
 
   getProductById(id: string) {
-    const bookById = this._mockBooks.find(book => book.id === id);
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
+    const bookById = products.find((book: any) => book.id === id);
     if (!bookById) {
       return throwError(() => new Error(`book with id ${id} not found`));
     }
@@ -36,30 +39,36 @@ export class ProductService {
   }
 
   addProduct(data: BookData) {
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
     const newBook: Book = {
-      id: `${this._mockBooks.length + 1}`,
+      id: `${products.length + 1}`,
       ...data
     };
-    this._mockBooks.push(newBook);
+    products.push(newBook);
+    localStorage.setItem('products', JSON.stringify(products));
     return of(newBook);
   }
   updateProduct(id: string, data: BookData) {
-    const index = this._mockBooks.findIndex(book => book.id === id);
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
+    const index = products.findIndex((book: any) => book.id === id);
     if (index < 0) {
       return throwError(() => new Error(`book with id ${id} not found`));
     }
-    this._mockBooks[index] = {
-      ...this._mockBooks[index],
+    products[index] = {
+      ...products[index],
       ...data
     };
-    return of(this._mockBooks[index]);
+    localStorage.setItem('products', JSON.stringify(products));
+    return of(products[index]);
   }
   deleteProduct(id: string) {
-    const index = this._mockBooks.findIndex(book => book.id === id);
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
+    const index = products.findIndex((book: any) => book.id === id);
     if (index < 0) {
       return throwError(() => new Error(`book with id ${id} not found`));
     }
-    const [deleted] = this._mockBooks.splice(index, 1);
+    const [deleted] = products.splice(index, 1);
+    localStorage.setItem('products', JSON.stringify(products));
     return of(deleted);
   }
 }

@@ -1,8 +1,10 @@
+<a [routerLink]="['..']">Back</a>
 <app-product-info [product]="product"></app-product-info>
 <div class="actions">
     <button class="btn" (click)="onClickEdit()">Edit Book</button>
     <button class="btn" (click)="onClickDelete()">Delete Book</button>
 </div>
+
 <app-modal *ngIf="displayEditForm" (close)="onCloseEditForm()">
     <h4>Edit Book</h4>
     <app-product-form [productToEdit]="product" (productSubmit)="onEditFormSubmit($event)"></app-product-form>
