@@ -3,13 +3,14 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
-    width: 80%;
+    width: 90%;
 }
 .order-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    align-content: space-around;
+    gap: 0.3rem;
     flex-wrap: wrap;
     padding: 0.5rem;
 

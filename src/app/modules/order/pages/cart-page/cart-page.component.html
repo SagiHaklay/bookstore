@@ -4,8 +4,8 @@
 </div>
 <form *ngIf="cart.length !== 0" class="form" [formGroup]="orderForm" (ngSubmit)="onCheckout()">
 <div class="cart-container">
-    <div *ngFor="let item of cart" class="cart-item">
-        <button class="btn">Remove</button>
+    <div *ngFor="let item of cart; let i = index" class="cart-item">
+        <button type="button" (click)="onRemoveCartItem(i)" class="btn">Remove</button>
         <span>{{item.product.name}}</span>
         <div class="price-details">
             <span [ngClass]="{'line-through': item.product.discount}">{{item.product.price}}</span>

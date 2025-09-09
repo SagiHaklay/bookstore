@@ -62,4 +62,16 @@ export class CartPageComponent implements OnInit {
   onDialogBoxClose() {
     this.showDialogBox = false;
   }
+  onRemoveCartItem(index: number) {
+    if (this.userId !== null) {
+      this.cartService.removeFromUserCart(this.userId, this.cart[index].product.id).subscribe({
+        next: () => {
+          this.cart.splice(index, 1);
+        }
+      });
+    } else {
+      this.cart.splice(index, 1);
+    }
+
+  }
 }
