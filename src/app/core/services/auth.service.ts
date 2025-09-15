@@ -18,10 +18,10 @@ export class AuthService {
   constructor(private cartService: CartService) { 
     this._token.next(localStorage.getItem('token'));
     this._currentUserId.next(localStorage.getItem('userId'));
-    localStorage.setItem('users', JSON.stringify([
-      { id: '1', username: 'admin', password: 'admin', email: 'admin@gmail.com', isAdmin: true},
-      { id: '2', username: 'user', password: 'password', email: 'user@gmail.com', isAdmin: false},
-    ]));
+    // localStorage.setItem('users', JSON.stringify([
+    //   { id: '1', username: 'admin', password: 'admin', email: 'admin@gmail.com', isAdmin: true},
+    //   { id: '2', username: 'user', password: 'password', email: 'user@gmail.com', isAdmin: false},
+    // ]));
   }
 
   login(username: string, password: string, checkAdmin: boolean = false): Observable<AuthResponse> {
@@ -39,14 +39,15 @@ export class AuthService {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find((u: any) => u.username === username && u.password === password);
     if (user) {
-      this._token.next(user.token);
+      const token = `token${user.id}`;
+      this._token.next(token);
       this._isAdmin.next(checkAdmin && user.isAdmin);
       this._currentUserId.next(user.id);
-      localStorage.setItem('token', user.token);
+      localStorage.setItem('token', token);
       localStorage.setItem('userId', user.id);
       this.cartService.saveGuestCartToUser(user.id);
       return of({
-        token: user.token,
+        token,
         isAdmin: checkAdmin && user.isAdmin,
         userId: user.id
       });

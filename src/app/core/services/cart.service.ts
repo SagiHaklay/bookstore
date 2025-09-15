@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../models/cart-item.model';
-import { BehaviorSubject, of, tap } from 'rxjs';
+import { BehaviorSubject, of, tap, throwError } from 'rxjs';
 
 @Injectable()
 export class CartService {
@@ -43,6 +43,9 @@ export class CartService {
   }
   addToUserCart(userId: string, cartItem: CartItem) {
     const carts = JSON.parse(localStorage.getItem('carts') || '[]');
+    if (carts.findIndex((item: any) => item.product.id === cartItem.product.id) !== -1) {
+      return throwError(() => new Error('Product already in cart!'));
+    }
     carts.push({
       userId,
       ...cartItem
@@ -73,16 +76,19 @@ export class CartService {
     return this.getUserCart(userId);
   }
   saveGuestCartToUser(userId: string) {
-    let carts = JSON.parse(localStorage.getItem('carts') || '[]');
-    carts = carts.filter((item: any) => item.userId !== userId);
-    for (let cartItem of this._cartItems) {
-      carts.push({
-        userId,
-        ...cartItem
-      });
+    if (this._cartItems.length > 0) {
+      let carts = JSON.parse(localStorage.getItem('carts') || '[]');
+      carts = carts.filter((item: any) => item.userId !== userId);
+      for (let cartItem of this._cartItems) {
+        carts.push({
+          userId,
+          ...cartItem
+        });
+      }
+      localStorage.setItem('carts', JSON.stringify(carts));
+      this.clearCart();
     }
-    localStorage.setItem('carts', JSON.stringify(carts));
-    this.clearCart();
+    
     return this.getUserCart(userId);
   }
 }

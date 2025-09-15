@@ -22,11 +22,12 @@ export class ProductService {
     }
   ];
   constructor() { 
-    localStorage.setItem('products', JSON.stringify(this._mockBooks));
+    // localStorage.setItem('products', JSON.stringify(this._mockBooks));
   }
 
   getProducts(): Observable<Book[]> {
-    return of(this._mockBooks);
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
+    return of(products);
   }
 
   getProductById(id: string) {

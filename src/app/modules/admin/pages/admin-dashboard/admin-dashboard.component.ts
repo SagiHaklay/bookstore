@@ -44,7 +44,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.displayDialogBox = false;
   }
   onSubmitAddProduct(productData: BookData) {
-    this.productService.addProduct(productData).subscribe(() => {
+    this.productService.addProduct(productData).subscribe((product) => {
+      this.products.push(product);
       this.displayAddProductForm = false;
       this.dialogBoxMessage = 'Book added successfully';
       this.displayDialogBox = true;

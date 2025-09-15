@@ -44,7 +44,7 @@ export class UserService {
     if (index >= 0) {
       users[index] = {...users[index], ...data};
       localStorage.setItem('users', JSON.stringify(users));
-      return of(this._mockUsers[index]);
+      return of(users[index]);
     }
     return throwError(() => new Error(`User #${id} does not exist.`));
   }

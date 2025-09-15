@@ -1,4 +1,4 @@
-<a *ngFor="let product of currentPageContent" [routerLink]="product.id">
+<a *ngFor="let product of currentPageContent" [routerLink]="['/product', product.id]">
     <app-product-item [item]="product" ></app-product-item>
 </a>
 <div *ngIf="pageCount >= 2" class="navigation">
