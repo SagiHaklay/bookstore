@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, throwError } from 'rxjs';
 import { AuthResponse } from '../models/auth-response.model';
 import { CartService } from './cart.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,7 @@ export class AuthService {
     { username: 'admin', password: 'admin', isAdmin: true, token: 'admintoken', id: '1' },
     { username: 'user', password: 'password', isAdmin: false, token: 'token', id: '2' }
   ];
-  constructor(private cartService: CartService) { 
+  constructor(private http: HttpClient, private cartService: CartService) { 
     this._token.next(localStorage.getItem('token'));
     this._currentUserId.next(localStorage.getItem('userId'));
     // localStorage.setItem('users', JSON.stringify([
@@ -36,24 +38,38 @@ export class AuthService {
     //   });
     // }
     // const user = this._mockUsers.find(u => u.username === username && u.password === password);
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((u: any) => u.username === username && u.password === password);
-    if (user) {
-      const token = `token${user.id}`;
-      this._token.next(token);
-      this._isAdmin.next(checkAdmin && user.isAdmin);
-      this._currentUserId.next(user.id);
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', user.id);
-      this.cartService.saveGuestCartToUser(user.id);
-      return of({
-        token,
-        isAdmin: checkAdmin && user.isAdmin,
-        userId: user.id
-      });
-    }
-    // REST API login
-    return throwError(() => new Error('Username and/or password are incorrect!'));
+    // const users = JSON.parse(localStorage.getItem('users') || '[]');
+    // const user = users.find((u: any) => u.username === username && u.password === password);
+    // if (user) {
+    //   const token = `token${user.id}`;
+    //   this._token.next(token);
+    //   this._isAdmin.next(checkAdmin && user.isAdmin);
+    //   this._currentUserId.next(user.id);
+    //   localStorage.setItem('token', token);
+    //   localStorage.setItem('userId', user.id);
+    //   this.cartService.saveGuestCartToUser(user.id);
+    //   return of({
+    //     token,
+    //     isAdmin: checkAdmin && user.isAdmin,
+    //     userId: user.id
+    //   });
+    // }
+    // // REST API login
+    // return throwError(() => new Error('Username and/or password are incorrect!'));
+    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/login`, {
+      username, password
+    }, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    }).pipe(map(res => {
+      this._token.next(res.token);
+      const isAdmin = checkAdmin && res.isAdmin;
+      this._isAdmin.next(isAdmin);
+      this._currentUserId.next(res.userId);
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('userId', res.userId);
+      this.cartService.saveGuestCartToUser(res.userId);
+      return {...res, isAdmin};
+    }));
   }
   signUp(userData: any) {
     this._mockUsers.push(userData);

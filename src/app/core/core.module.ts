@@ -8,6 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductService } from "./services/product.service";
 import { CartService } from './services/cart.service';
+import { provideHttpClient } from '@angular/common/http';
 
 
 
@@ -21,7 +22,9 @@ import { CartService } from './services/cart.service';
     CommonModule,
     RouterModule
   ],
-  providers: [AuthService, AuthGuard, ProductService, CartService],
+  providers: [
+    AuthService, AuthGuard, ProductService, CartService, provideHttpClient()
+  ],
   exports: [
     RouterModule,
     PageNotFoundComponent, 
