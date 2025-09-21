@@ -8,7 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductService } from "./services/product.service";
 import { CartService } from './services/cart.service';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { tokenInterceptor } from './interceptors/token.interceptor';
 
 
 
@@ -23,7 +24,8 @@ import { provideHttpClient } from '@angular/common/http';
     RouterModule
   ],
   providers: [
-    AuthService, AuthGuard, ProductService, CartService, provideHttpClient()
+    AuthService, AuthGuard, ProductService, CartService, 
+    provideHttpClient(withInterceptors([tokenInterceptor]))
   ],
   exports: [
     RouterModule,
