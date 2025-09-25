@@ -67,7 +67,7 @@ export class AuthService {
       this._currentUserId.next(res.userId);
       localStorage.setItem('token', res.token);
       localStorage.setItem('userId', res.userId);
-      this.cartService.saveGuestCartToUser(res.userId);
+      this.cartService.saveGuestCartToUser(res.userId).subscribe({});
       return {...res, isAdmin};
     }));
   }
