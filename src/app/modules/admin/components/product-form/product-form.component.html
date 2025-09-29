@@ -24,5 +24,10 @@
         <input type="number" formControlName="discount" />
         <div *ngIf="productForm.get('discount')?.invalid && productForm.get('discount')?.touched" class="error-msg">Discount percent must be between 0 and 100!</div>
     </div>
+    <div class="form-group">
+        <label for="">Image:</label>
+        <input type="file" (change)="onFileChange($event)" />
+        <div *ngIf="productForm.get('image')?.invalid" class="error-msg">{{getImageErrorMessage()}}</div>
+    </div>
     <button class="submit-btn" [disabled]="productForm.invalid" type="submit">Submit</button>
 </form>

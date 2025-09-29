@@ -4,6 +4,7 @@ import { AuthResponse } from '../models/auth-response.model';
 import { CartService } from './cart.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { UserAccount } from '../../modules/user/models/user-account.model';
 
 @Injectable()
 export class AuthService {
@@ -83,10 +84,15 @@ export class AuthService {
   }
   checkIsAdmin() {
     const userId = localStorage.getItem('userId');
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((u: any) => u.id === userId);
-    const isUserAdmin = user != null && user.isAdmin;
-    this._isAdmin.next(isUserAdmin);
-    return of(isUserAdmin);
+    if (userId === null) return of(false);
+    // const users = JSON.parse(localStorage.getItem('users') || '[]');
+    // const user = users.find((u: any) => u.id === userId);
+    // const isUserAdmin = user != null && user.isAdmin;
+    // this._isAdmin.next(isUserAdmin);
+    // return of(isUserAdmin);
+    return this.http.get<UserAccount>(`${environment.apiUrl}/user/${userId}`).pipe(map((user) => {
+      this._isAdmin.next(user.isAdmin);
+      return user.isAdmin;
+    }));
   }
 }

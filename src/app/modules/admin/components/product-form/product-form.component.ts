@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Book } from '../../../../core/models/book.model';
 import { BookData } from '../../../../core/models/book-data.model';
 
@@ -20,8 +20,41 @@ export class ProductFormComponent implements OnInit {
       author: this.fb.control(this.productToEdit?.author || '', [Validators.required]),
       publisher: this.fb.control(this.productToEdit?.publisher || '', []),
       price: this.fb.control(this.productToEdit?.price || 0, [Validators.required, Validators.min(0)]),
-      discount: this.fb.control(this.productToEdit?.discount || 0, [Validators.min(0), Validators.max(100)])
+      discount: this.fb.control(this.productToEdit?.discount || 0, [Validators.min(0), Validators.max(100)]),
+      image: this.fb.control(null, [])
     });
+  }
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    this.productForm.patchValue({image: file});
+  }
+  fileValidator(control: AbstractControl) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxSize = 16 * 1024 * 1024;
+    const file = control.value;
+    if (!file) return null;
+    if (!allowedTypes.includes(file.type)) {
+      console.log(file);
+      return {
+        fileTypeError: true
+      };
+    }
+    if (file.size > maxSize) {
+      return {
+        fileSizeError: true
+      };
+    }
+    return null;
+  }
+  getImageErrorMessage() {
+    const errors = this.productForm.get('image')?.errors;
+    if (errors && errors['fileTypeError']) {
+      return 'Invalid file type!';
+    }
+    if (errors && errors['fileSizeError']) {
+      return 'File too big!';
+    }
+    return 'Invalid file';
   }
   getPriceErrorMessage() {
     const errors = this.productForm.get('price')?.errors;
@@ -40,6 +73,7 @@ export class ProductFormComponent implements OnInit {
       publisher: this.productForm.get('publisher')?.value || undefined,
       price: this.productForm.get('price')?.value || 0,
       discount: this.productForm.get('discount')?.value || undefined,
+      image: this.productForm.get('image')?.value
     };
     this.productSubmit.emit(submitProduct);
   }

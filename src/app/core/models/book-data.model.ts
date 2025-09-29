@@ -4,5 +4,6 @@ export interface BookData {
     price: number,
     discount?: number,
     publisher?: string,
-    imageUrl?: string
+    imageUrl?: string,
+    image?: File
 }

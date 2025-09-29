@@ -27,6 +27,19 @@ export class ProductService {
     // localStorage.setItem('products', JSON.stringify(this._mockBooks));
   }
 
+  private toFormData(data: BookData) {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('author', data.author);
+    if (data.publisher)
+      formData.append('publisher', data.publisher);
+    formData.append('price', `${data.price}`);
+    if (data.discount)
+      formData.append('discount', `${data.discount}`);
+    if (data.image)
+      formData.append('image', data.image);
+    return formData;
+  }
   getProducts(): Observable<Book[]> {
     // const products = JSON.parse(localStorage.getItem('products') || '[]');
     // return of(products);
@@ -52,9 +65,7 @@ export class ProductService {
     // products.push(newBook);
     // localStorage.setItem('products', JSON.stringify(products));
     // return of(newBook);
-    return this.http.post<Book>(`${environment.apiUrl}/product/create`, data, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
+    return this.http.post<Book>(`${environment.apiUrl}/product/create`, this.toFormData(data));
   }
   updateProduct(id: string, data: BookData) {
     // const products = JSON.parse(localStorage.getItem('products') || '[]');
@@ -68,9 +79,7 @@ export class ProductService {
     // };
     // localStorage.setItem('products', JSON.stringify(products));
     // return of(products[index]);
-    return this.http.patch<Book>(`${environment.apiUrl}/product/${id}/update`, data, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
+    return this.http.patch<Book>(`${environment.apiUrl}/product/${id}/update`, this.toFormData(data));
   }
   deleteProduct(id: string) {
     // const products = JSON.parse(localStorage.getItem('products') || '[]');
