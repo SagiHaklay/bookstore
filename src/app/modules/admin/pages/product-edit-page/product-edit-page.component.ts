@@ -30,12 +30,20 @@ export class ProductEditPageComponent implements OnInit {
     this.displayEditForm = false;
   }
   onEditFormSubmit(productData: BookData) {
-    this.productService.updateProduct(this.product.id, productData).subscribe((updated) => {
-      this.product = updated;
-      this.displayEditForm = false;
-      this.dialogBoxMessage = 'Product edited successfully';
-      this.isConfirmDelete = false;
-      this.displayDialogBox = true;
+    this.productService.updateProduct(this.product.id, productData).subscribe({
+      next: (updated) => {
+        this.product = updated;
+        this.displayEditForm = false;
+        this.dialogBoxMessage = 'Product edited successfully';
+        this.isConfirmDelete = false;
+        this.displayDialogBox = true;
+      },
+      error: (err: Error) => {
+        this.dialogBoxMessage = err.message;
+        this.displayEditForm = false;
+        this.isConfirmDelete = false;
+        this.displayDialogBox = true;
+      }
     });
   }
   onClickDelete() {
@@ -44,11 +52,19 @@ export class ProductEditPageComponent implements OnInit {
     this.displayDialogBox = true;
   }
   onConfirmDelete() {
-    this.productService.deleteProduct(this.product.id).subscribe(() => {
-      this.displayDialogBox = false;
-      this.router.navigate(['/admin', 'dashboard'], {
-        queryParams: {bookDeleted: true}
-      });
+    this.productService.deleteProduct(this.product.id).subscribe({
+      next: () => {
+        this.displayDialogBox = false;
+        this.router.navigate(['/admin', 'dashboard'], {
+          queryParams: {bookDeleted: true}
+        });
+      },
+      error: (err: Error) => {
+        this.dialogBoxMessage = err.message;
+        this.displayEditForm = false;
+        this.isConfirmDelete = false;
+        this.displayDialogBox = true;
+      }
     });
   }
   onCloseDialogBox() {

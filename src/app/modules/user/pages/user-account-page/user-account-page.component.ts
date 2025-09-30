@@ -12,7 +12,6 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class UserAccountPageComponent implements OnInit {
   userAccount!: UserAccount;
-  editErrorMessage: string = '';
   showModal = false;
   isChangePassword = false;
   displayDialogBox = false;
@@ -54,7 +53,10 @@ export class UserAccountPageComponent implements OnInit {
           this.displayDialogBox = true;
         },
         error: (err: Error) => {
-          this.editErrorMessage = err.message;
+          this.showModal = false;
+          this.dialogBoxMessage = err.message;
+          this.isConfirmDelete = false;
+          this.displayDialogBox = true;
         }
       });
     }
@@ -74,8 +76,11 @@ export class UserAccountPageComponent implements OnInit {
           this.authService.logout();
           this.router.navigate(['/']);
         },
-        error: (err) => {
-          console.error(err);
+        error: (err: Error) => {
+          this.showModal = false;
+          this.dialogBoxMessage = err.message;
+          this.isConfirmDelete = false;
+          this.displayDialogBox = true;
         }
       });
     }
@@ -91,7 +96,10 @@ export class UserAccountPageComponent implements OnInit {
         this.displayDialogBox = true;
       },
       error: (err: Error) => {
-        this.editErrorMessage = err.message;
+        this.showModal = false;
+        this.dialogBoxMessage = err.message;
+        this.isConfirmDelete = false;
+        this.displayDialogBox = true;
       }
     });
   }

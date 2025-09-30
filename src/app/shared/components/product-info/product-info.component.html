@@ -19,8 +19,8 @@
         <label for="">Price:</label>
         <span>{{product.price}}NIS</span>
     </div>
-    <div class="info-item">
+    <div *ngIf="product.discount" class="info-item">
         <label for="">Discount:</label>
-        <span>{{product.discount}}</span>
+        <span>{{product.discount}}%</span>
     </div>
 </div>
