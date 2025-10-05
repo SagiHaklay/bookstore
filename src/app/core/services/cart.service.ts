@@ -101,6 +101,7 @@ export class CartService {
     // }
     
     // return this.getUserCart(userId);
+    if (this._cartItems.length === 0) return of([]);
     return this.http.post<CartItem[]>(`${environment.apiUrl}/cart/${userId}/addMany`, {
       cartItems: this._cartItems.map(item => {
         return {

@@ -37,8 +37,8 @@ export class LoginFormComponent implements OnInit {
         }
         
       },
-      error: (err: Error) => {
-        this.loginFailedMessage = err.message;
+      error: () => {
+        this.loginFailedMessage = 'Username and/or password are incorrect';
       }
     });
   }
