@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ChangePasswordModel } from '../../models/change-password.model';
 
 @Component({
   selector: 'app-change-password',
@@ -7,8 +8,8 @@ import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Valida
   styleUrl: './change-password.component.scss'
 })
 export class ChangePasswordComponent implements OnInit {
-  @Input() oldPassword: string = '';
-  @Output() passwordSubmit = new EventEmitter<string>();
+  @Input() oldPassword: string | undefined = undefined;
+  @Output() passwordSubmit = new EventEmitter<ChangePasswordModel>();
   passwordForm!: FormGroup;
   constructor(private fb: FormBuilder) {}
 
@@ -19,7 +20,7 @@ export class ChangePasswordComponent implements OnInit {
     this.passwordForm = this.fb.group({
       password: this.fb.control('', [Validators.required]),
       repeatPassword: this.fb.control('', [Validators.required]),
-      oldPassword: this.fb.control('', [Validators.required, this.oldPasswordValidator()])
+      oldPassword: this.fb.control('', [Validators.required])
     }, options);
   }
 
@@ -57,7 +58,10 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onFormSubmit() {
-    const password = this.passwordForm.get('password')?.value;
-    this.passwordSubmit.emit(password);
+    const newPassword = this.passwordForm.get('password')?.value;
+    const oldPassword = this.passwordForm.get('oldPassword')?.value;
+    this.passwordSubmit.emit({
+      oldPassword, newPassword
+    });
   }
 }

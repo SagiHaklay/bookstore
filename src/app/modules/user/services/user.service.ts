@@ -5,13 +5,11 @@ import { UserData } from '../models/user-data.model';
 import { AuthService } from '../../../core/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { ChangePasswordModel } from '../models/change-password.model';
 
 @Injectable()
 export class UserService {
-  private _mockUsers: UserAccount[] = [
-    { id: '1', username: 'admin', password: 'admin', email: 'admin@gmail.com', isAdmin: true},
-    { id: '2', username: 'user', password: 'password', email: 'user@gmail.com', isAdmin: false},
-  ];
+  
   constructor(private authService: AuthService, private http: HttpClient) { }
 
   getUser(id: string): Observable<UserAccount> {
@@ -68,5 +66,10 @@ export class UserService {
     // }
     // return throwError(() => new Error(`User #${id} does not exist.`));
     return this.http.delete(`${environment.apiUrl}/user/${id}/delete`);
+  }
+  changePassword(id: string, passwordChange: ChangePasswordModel) {
+    return this.http.patch<string>(`${environment.apiUrl}/user/${id}/password`, passwordChange, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
   }
 }

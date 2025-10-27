@@ -4,6 +4,7 @@ import { UserAccount } from '../../models/user-account.model';
 import { UserData } from '../../models/user-data.model';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../../core/services/auth.service';
+import { ChangePasswordModel } from '../../models/change-password.model';
 
 @Component({
   selector: 'app-user-account-page',
@@ -86,10 +87,10 @@ export class UserAccountPageComponent implements OnInit {
     }
   }
 
-  onChangePasswordSubmit(password: string) {
-    this.userService.updateUser(this.userAccount.id, {password}).subscribe({
+  onChangePasswordSubmit(passwords: ChangePasswordModel) {
+    this.userService.changePassword(this.userAccount.id, passwords).subscribe({
       next: (res) => {
-        this.userAccount = res;
+        this.userAccount.password = res;
         this.showModal = false;
         this.dialogBoxMessage = 'Password changed successfully';
         this.isConfirmDelete = false;

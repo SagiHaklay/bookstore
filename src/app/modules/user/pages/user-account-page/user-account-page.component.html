@@ -30,7 +30,7 @@
     </div>
     <div *ngIf="isChangePassword">
         <h3>Change Password</h3>
-        <app-change-password [oldPassword]="userAccount.password" (passwordSubmit)="onChangePasswordSubmit($event)"></app-change-password>
+        <app-change-password (passwordSubmit)="onChangePasswordSubmit($event)"></app-change-password>
     </div>
 </app-modal>
 

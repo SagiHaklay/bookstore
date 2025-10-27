@@ -12,6 +12,6 @@ export class ProductInfoComponent implements OnInit {
   imageUrl!: string;
 
   ngOnInit(): void {
-    this.imageUrl = this.product.imageUrl? `${environment.apiUrl}/static/${this.product.imageUrl}` : '';
+    this.imageUrl = this.product.imageUrl? `${environment.apiUrl}/${this.product.imageUrl}` : '';
   }
 }
