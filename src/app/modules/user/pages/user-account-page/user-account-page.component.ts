@@ -89,8 +89,8 @@ export class UserAccountPageComponent implements OnInit {
 
   onChangePasswordSubmit(passwords: ChangePasswordModel) {
     this.userService.changePassword(this.userAccount.id, passwords).subscribe({
-      next: (res) => {
-        this.userAccount.password = res;
+      next: () => {
+        // this.userAccount.password = res;
         this.showModal = false;
         this.dialogBoxMessage = 'Password changed successfully';
         this.isConfirmDelete = false;

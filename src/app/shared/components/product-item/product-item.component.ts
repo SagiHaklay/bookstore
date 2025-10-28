@@ -12,6 +12,6 @@ export class ProductItemComponent implements OnInit {
   imageUrl!: string;
 
   ngOnInit(): void {
-    this.imageUrl = this.item.imageUrl? `${environment.apiUrl}/${this.item.imageUrl}` : '';
+    this.imageUrl = this.item.imageUrl? `${environment.apiUrl}/images/${this.item.imageUrl}` : '';
   }
 }
