@@ -68,7 +68,7 @@ export class UserService {
     return this.http.delete(`${environment.apiUrl}/user/${id}/delete`);
   }
   changePassword(id: string, passwordChange: ChangePasswordModel) {
-    return this.http.patch<string>(`${environment.apiUrl}/user/${id}/password`, passwordChange, {
+    return this.http.patch<ChangePasswordModel>(`${environment.apiUrl}/user/${id}/password`, passwordChange, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }

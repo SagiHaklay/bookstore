@@ -21,7 +21,9 @@ export class CartService {
   private _cartItems: CartItem[] = [];
   private _cartSubject = new BehaviorSubject<CartItem[]>([]);
   cart$ = this._cartSubject.asObservable();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+	this._cartItems = JSON.parse(localStorage.getItem('carts') || '[]');
+  }
 
   get guestCart() {
     return this._cartItems.slice();
@@ -42,6 +44,7 @@ export class CartService {
       throw new Error('Product already in cart!');
     }
     this._cartItems.push(cartItem);
+	localStorage.setItem('carts', JSON.stringify(this._cartItems));
     this._cartSubject.next(this._cartItems.slice());
   }
   addToUserCart(userId: string, cartItem: CartItem) {
@@ -64,6 +67,7 @@ export class CartService {
   }
   clearCart() {
     this._cartItems = [];
+	localStorage.setItem('carts', '[]');
     this._cartSubject.next([]);
   }
   placeOrder(userId: string) {
@@ -73,9 +77,9 @@ export class CartService {
     // return of({});
     return this.http.post(`${environment.apiUrl}/cart/${userId}/order`, {});
   }
-  removeFromCart(productId: string) {
-    const removeIndex = this._cartItems.findIndex((item) => item.product.id === productId);
+  removeFromCart(removeIndex: number) {
     this._cartItems.splice(removeIndex, 1);
+	localStorage.setItem('carts', JSON.stringify(this._cartItems));
     this._cartSubject.next(this._cartItems.slice());
   }
   removeFromUserCart(userId: string, productId: string) {
@@ -102,13 +106,15 @@ export class CartService {
     
     // return this.getUserCart(userId);
     if (this._cartItems.length === 0) return of([]);
-    return this.http.post<CartItem[]>(`${environment.apiUrl}/cart/${userId}/addMany`, {
-      cartItems: this._cartItems.map(item => {
+	const cartItems = this._cartItems.map(item => {
         return {
           productId: item.product.id,
           quantity: item.quantity
         };
-      })
+    });
+	this.clearCart();
+    return this.http.post<CartItem[]>(`${environment.apiUrl}/cart/${userId}/addMany`, {
+      cartItems
     }, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });

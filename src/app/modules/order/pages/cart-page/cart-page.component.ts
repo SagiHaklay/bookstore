@@ -64,7 +64,9 @@ export class CartPageComponent implements OnInit {
     return this.cart.map(this.getItemTotal).reduce((sum, curr) => sum + curr);
   }
   onConfirmLogin() {
-    this.router.navigate(['/user', 'login']);
+    this.router.navigate(['/user', 'login'], {
+		queryParams: {saveCart: true}
+	});
   }
   onDialogBoxClose() {
     this.showDialogBox = false;
@@ -82,7 +84,8 @@ export class CartPageComponent implements OnInit {
         }
       });
     } else {
-      this.cart.splice(index, 1);
+      this.cartService.removeFromCart(index);
+	  this.cart = this.cartService.guestCart;
     }
 
   }
