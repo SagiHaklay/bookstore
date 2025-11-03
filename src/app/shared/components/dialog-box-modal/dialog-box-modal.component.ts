@@ -3,7 +3,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-dialog-box-modal',
   templateUrl: './dialog-box-modal.component.html',
-  styleUrl: './dialog-box-modal.component.scss'
+  styleUrl: './dialog-box-modal.component.scss',
+  standalone: false
 })
 export class DialogBoxModalComponent {
   @Input() message: string = '';

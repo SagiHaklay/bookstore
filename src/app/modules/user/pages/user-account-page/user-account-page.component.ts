@@ -9,7 +9,8 @@ import { ChangePasswordModel } from '../../models/change-password.model';
 @Component({
   selector: 'app-user-account-page',
   templateUrl: './user-account-page.component.html',
-  styleUrl: './user-account-page.component.scss'
+  styleUrl: './user-account-page.component.scss',
+  standalone: false
 })
 export class UserAccountPageComponent implements OnInit {
   userAccount!: UserAccount;

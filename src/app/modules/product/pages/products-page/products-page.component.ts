@@ -5,7 +5,8 @@ import { Book } from '../../../../core/models/book.model';
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
-  styleUrl: './products-page.component.scss'
+  styleUrl: './products-page.component.scss',
+  standalone: false
 })
 export class ProductsPageComponent implements OnInit {
   products: Book[] = [];

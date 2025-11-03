@@ -8,7 +8,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrl: './login-form.component.scss'
+  styleUrl: './login-form.component.scss',
+  standalone: false
 })
 export class LoginFormComponent implements OnInit, OnDestroy {
   @Input() checkAdmin = false;

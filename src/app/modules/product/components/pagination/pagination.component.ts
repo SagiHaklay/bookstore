@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.scss'
+  styleUrl: './pagination.component.scss',
+  standalone: false
 })
 export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
   @Input() products: Book[] = [];

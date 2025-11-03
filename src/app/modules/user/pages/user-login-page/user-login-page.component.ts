@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-user-login-page',
   templateUrl: './user-login-page.component.html',
-  styleUrl: './user-login-page.component.scss'
+  styleUrl: './user-login-page.component.scss',
+  standalone: false
 })
 export class UserLoginPageComponent implements OnInit {
   showDialogBox = false;

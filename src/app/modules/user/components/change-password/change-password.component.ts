@@ -5,7 +5,8 @@ import { ChangePasswordModel } from '../../models/change-password.model';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrl: './change-password.component.scss'
+  styleUrl: './change-password.component.scss',
+  standalone: false
 })
 export class ChangePasswordComponent implements OnInit {
   @Input() oldPassword: string | undefined = undefined;

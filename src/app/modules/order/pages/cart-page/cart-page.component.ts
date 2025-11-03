@@ -9,7 +9,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-cart-page',
   templateUrl: './cart-page.component.html',
-  styleUrl: './cart-page.component.scss'
+  styleUrl: './cart-page.component.scss',
+  standalone: false
 })
 export class CartPageComponent implements OnInit, OnDestroy {
   cart: CartItem[] = [];

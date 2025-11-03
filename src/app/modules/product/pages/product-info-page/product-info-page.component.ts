@@ -7,7 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-product-info-page',
   templateUrl: './product-info-page.component.html',
-  styleUrl: './product-info-page.component.scss'
+  styleUrl: './product-info-page.component.scss',
+  standalone: false
 })
 export class ProductInfoPageComponent implements OnInit {
   product!: Book;

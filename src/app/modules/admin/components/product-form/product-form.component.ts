@@ -6,7 +6,8 @@ import { BookData } from '../../../../core/models/book-data.model';
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
-  styleUrl: './product-form.component.scss'
+  styleUrl: './product-form.component.scss',
+  standalone: false
 })
 export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;

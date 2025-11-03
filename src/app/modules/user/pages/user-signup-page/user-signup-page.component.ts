@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-signup-page',
   templateUrl: './user-signup-page.component.html',
-  styleUrl: './user-signup-page.component.scss'
+  styleUrl: './user-signup-page.component.scss',
+  standalone: false
 })
 export class UserSignupPageComponent {
   errorMessage: string = '';

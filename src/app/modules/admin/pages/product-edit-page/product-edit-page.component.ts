@@ -7,7 +7,8 @@ import { ProductService } from '../../../../core/services/product.service';
 @Component({
   selector: 'app-product-edit-page',
   templateUrl: './product-edit-page.component.html',
-  styleUrl: './product-edit-page.component.scss'
+  styleUrl: './product-edit-page.component.scss',
+  standalone: false
 })
 export class ProductEditPageComponent implements OnInit {
   product!: Book;

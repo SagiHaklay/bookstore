@@ -5,7 +5,8 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
-  styleUrl: './product-item.component.scss'
+  styleUrl: './product-item.component.scss',
+  standalone: false
 })
 export class ProductItemComponent implements OnInit {
   @Input() item!: Book;

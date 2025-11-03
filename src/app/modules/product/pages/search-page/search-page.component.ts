@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-search-page',
   templateUrl: './search-page.component.html',
-  styleUrl: './search-page.component.scss'
+  styleUrl: './search-page.component.scss',
+  standalone: false
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
   products: Book[] = [];

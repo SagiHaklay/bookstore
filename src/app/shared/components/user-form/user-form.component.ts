@@ -5,7 +5,8 @@ import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Valida
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss'
+  styleUrl: './user-form.component.scss',
+  standalone: false
 })
 export class UserFormComponent implements OnInit {
   @Input() user: UserData = { username: '', email: '', password: '' };
