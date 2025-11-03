@@ -29,5 +29,9 @@
         <input type="file" (change)="onFileChange($event)" />
         <div *ngIf="productForm.get('image')?.invalid" class="error-msg">{{getImageErrorMessage()}}</div>
     </div>
-    <button class="submit-btn" [disabled]="productForm.invalid" type="submit">Submit</button>
+    <div class="btn-container">
+        <button class="submit-btn" [disabled]="productForm.invalid" type="submit">Submit</button>
+        <button class="submit-btn" type="button" (click)="onCancelClick()">Cancel</button>
+    </div>
+    
 </form>

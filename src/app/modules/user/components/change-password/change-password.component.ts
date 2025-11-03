@@ -11,6 +11,7 @@ import { ChangePasswordModel } from '../../models/change-password.model';
 export class ChangePasswordComponent implements OnInit {
   @Input() oldPassword: string | undefined = undefined;
   @Output() passwordSubmit = new EventEmitter<ChangePasswordModel>();
+  @Output() cancelForm = new EventEmitter();
   passwordForm!: FormGroup;
   constructor(private fb: FormBuilder) {}
 
@@ -24,7 +25,9 @@ export class ChangePasswordComponent implements OnInit {
       oldPassword: this.fb.control('', [Validators.required])
     }, options);
   }
-
+  onCancelClick() {
+    this.cancelForm.emit();
+  }
   passwordRepeatValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const repeatedPassword = control.get('repeatPassword')?.value;

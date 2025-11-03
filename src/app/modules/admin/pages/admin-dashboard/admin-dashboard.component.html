@@ -5,8 +5,8 @@
 <a *ngFor="let product of products" [routerLink]="['..', 'product', product.id]">
     <app-product-item [item]="product" ></app-product-item>
 </a>
-<app-modal *ngIf="displayAddProductForm" (close)="onCloseAddProduct()">
+<app-modal *ngIf="displayAddProductForm">
     <h4>Add New Book</h4>
-    <app-product-form (productSubmit)="onSubmitAddProduct($event)"></app-product-form>
+    <app-product-form (cancelForm)="onCloseAddProduct()" (productSubmit)="onSubmitAddProduct($event)"></app-product-form>
 </app-modal>
 <app-dialog-box-modal *ngIf="displayDialogBox" [message]="dialogBoxMessage" (close)="onCloseMessage()"></app-dialog-box-modal>

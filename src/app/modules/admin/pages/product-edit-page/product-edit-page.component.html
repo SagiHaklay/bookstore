@@ -5,9 +5,9 @@
     <button class="btn" (click)="onClickDelete()">Delete Book</button>
 </div>
 
-<app-modal *ngIf="displayEditForm" (close)="onCloseEditForm()">
+<app-modal *ngIf="displayEditForm">
     <h4>Edit Book</h4>
-    <app-product-form [productToEdit]="product" (productSubmit)="onEditFormSubmit($event)"></app-product-form>
+    <app-product-form [productToEdit]="product" (cancelForm)="onCloseEditForm()" (productSubmit)="onEditFormSubmit($event)"></app-product-form>
 </app-modal>
 <app-dialog-box-modal 
     *ngIf="displayDialogBox"

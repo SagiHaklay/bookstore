@@ -11,7 +11,9 @@ import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Valida
 export class UserFormComponent implements OnInit {
   @Input() user: UserData = { username: '', email: '', password: '' };
   @Input() includePassword: boolean = false;
+  @Input() includeCancel: boolean = false;
   @Output() userSubmit = new EventEmitter<UserData>();
+  @Output() cancelForm = new EventEmitter();
   userForm!: FormGroup;
   
 
@@ -58,5 +60,7 @@ export class UserFormComponent implements OnInit {
     this.user.password = this.includePassword? this.userForm.get('password')?.value : this.user.password;
     this.userSubmit.emit(this.user);
   }
-
+  onCancelClick() {
+    this.cancelForm.emit();
+  }
 }

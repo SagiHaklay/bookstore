@@ -32,5 +32,8 @@
         >Password repeat required!</div>
     </div>
     <div *ngIf="userForm.errors && userForm.errors['passwordRepeatError'] && userForm.get('repeatPassword')?.touched" class="error-msg">Passwords must be identical!</div>
-    <button class="submit-btn" type="submit" [disabled]="userForm.invalid">Submit</button>
+    <div class="btn-container">
+        <button class="submit-btn" [disabled]="userForm.invalid" type="submit">Submit</button>
+        <button *ngIf="includeCancel" class="submit-btn" type="button" (click)="onCancelClick()">Cancel</button>
+    </div>
 </form>

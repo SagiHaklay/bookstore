@@ -13,6 +13,7 @@ export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
   @Input() productToEdit: Book | null = null;
   @Output() productSubmit = new EventEmitter<BookData>();
+  @Output() cancelForm = new EventEmitter();
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -78,5 +79,7 @@ export class ProductFormComponent implements OnInit {
     };
     this.productSubmit.emit(submitProduct);
   }
-
+  onCancelClick() {
+    this.cancelForm.emit();
+  }
 }
