@@ -112,7 +112,7 @@ export class CartService {
           quantity: item.quantity
         };
     });
-	this.clearCart();
+	// this.clearCart();
     return this.http.post<CartItem[]>(`${environment.apiUrl}/cart/${userId}/addMany`, {
       cartItems
     }, {

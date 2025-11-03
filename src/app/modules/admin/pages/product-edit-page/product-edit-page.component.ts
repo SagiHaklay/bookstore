@@ -39,7 +39,7 @@ export class ProductEditPageComponent implements OnInit {
         this.displayDialogBox = true;
       },
       error: (err: Error) => {
-        this.dialogBoxMessage = err.message;
+        this.dialogBoxMessage = 'Failed to edit book.';
         this.displayEditForm = false;
         this.isConfirmDelete = false;
         this.displayDialogBox = true;
@@ -60,7 +60,7 @@ export class ProductEditPageComponent implements OnInit {
         });
       },
       error: (err: Error) => {
-        this.dialogBoxMessage = err.message;
+        this.dialogBoxMessage = 'Failed to delete book.';
         this.displayEditForm = false;
         this.isConfirmDelete = false;
         this.displayDialogBox = true;

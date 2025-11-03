@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartItem } from '../../../../core/models/cart-item.model';
 import { AuthService } from '../../../../core/services/auth.service';
-import { take } from 'rxjs';
+import { take, Subscription } from 'rxjs';
 import { CartService } from '../../../../core/services/cart.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -11,13 +11,14 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss'
 })
-export class CartPageComponent implements OnInit {
+export class CartPageComponent implements OnInit, OnDestroy {
   cart: CartItem[] = [];
   userId: string | null = null;
   showDialogBox = false;
   orderForm!: FormGroup;
   dialogBoxMessage: string = '';
   isYesNo = false;
+  queryParamsSub!: Subscription;
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
@@ -28,11 +29,21 @@ export class CartPageComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.cart = data['cart'];
     });
+	this.queryParamsSub = this.route.queryParams.subscribe((params) => {
+      if (params['cartSaveFailed']) {
+		  this.isYesNo = false;
+          this.dialogBoxMessage = 'Failed to save guest cart.';
+          this.showDialogBox = true;
+	  }
+    });
     this.userId = localStorage.getItem('userId');
     this.orderForm = this.fb.group({});
     // this.authService.currentUserId.pipe(take(1)).subscribe((id) => {
     //   this.userId = id;
     // });
+  }
+  ngOnDestroy(): void {
+    this.queryParamsSub.unsubscribe();
   }
   onCheckout() {
     if (this.userId === null) {
@@ -47,7 +58,7 @@ export class CartPageComponent implements OnInit {
         error: (err: Error) => {
           console.error(err);
           this.isYesNo = false;
-          this.dialogBoxMessage = err.message;
+          this.dialogBoxMessage = 'Failed to process order.';
           this.showDialogBox = true;
         }
       });
@@ -79,7 +90,7 @@ export class CartPageComponent implements OnInit {
         },
         error: (err: Error) => {
           this.isYesNo = false;
-          this.dialogBoxMessage = err.message;
+          this.dialogBoxMessage = 'Failed to remove item from cart.';
           this.showDialogBox = true;
         }
       });

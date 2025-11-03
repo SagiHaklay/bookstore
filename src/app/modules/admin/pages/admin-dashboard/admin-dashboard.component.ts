@@ -53,7 +53,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       },
       error: (err: Error) => {
         this.displayAddProductForm = false;
-        this.dialogBoxMessage = err.message;
+        this.dialogBoxMessage = 'Failed to add book.';
         this.displayDialogBox = true;
       }
     });

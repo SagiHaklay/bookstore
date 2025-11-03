@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { CartService } from '../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   loginFailedMessage: string = '';
   queryParamsSub!: Subscription;
   saveCart: boolean = false;
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private route: ActivatedRoute, private cartService: CartService) {}
 
   ngOnInit(): void {
 	this.queryParamsSub = this.route.queryParams.subscribe((params) => {
@@ -40,9 +41,24 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.authService.login(username, password, this.checkAdmin, this.saveCart).subscribe({
       next: (res) => {
         if (this.checkAdmin && !res.isAdmin) {
-          this.loginFailedMessage = 'User is not an admin!';
+			this.loginFailedMessage = 'User is not an admin!';
         } else {
-          this.router.navigate(['/']);
+			if (this.saveCart) {
+				this.cartService.saveGuestCartToUser(res.userId).subscribe({
+					next: () => {
+						this.cartService.clearCart();
+						this.router.navigate(['/order', 'cart']);
+					},
+					error: () => {
+						this.router.navigate(['/order', 'cart'], {
+							queryParams: {cartSaveFailed: true}
+						});
+					}
+				});
+				
+			} else {
+				this.router.navigate(['/']);
+			}
         }
         
       },
