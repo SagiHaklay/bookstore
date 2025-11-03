@@ -11,6 +11,7 @@ export class SearchBarComponent implements OnInit {
   @Input() initialQuary: string = '';
   searchForm!: FormGroup;
   @Output() searchSubmit = new EventEmitter<string>();
+  @Output() queryChange = new EventEmitter<string>();
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
     this.searchForm = this.fb.group({
@@ -18,8 +19,12 @@ export class SearchBarComponent implements OnInit {
     });
   }
   onSearch() {
-    const query = this.searchForm.get('query')?.value || '';
+    const query: string = this.searchForm.get('query')?.value || '';
     // console.log(query);
-    this.searchSubmit.emit(query);
+    this.searchSubmit.emit(query.toLowerCase());
+  }
+  onQueryChange() {
+    const query: string = this.searchForm.get('query')?.value || '';
+    this.queryChange.emit(query.toLowerCase());
   }
 }

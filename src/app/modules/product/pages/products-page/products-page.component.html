@@ -1,5 +1,5 @@
 <div class="products-container">
-    <app-search-bar (searchSubmit)="onSearch($event)"></app-search-bar>
-    <app-pagination [products]="products"></app-pagination>
+    <app-search-bar (queryChange)="onQueryChange($event)" (searchSubmit)="onSearch($event)"></app-search-bar>
+    <app-pagination [products]="searchResults"></app-pagination>
     
 </div>
