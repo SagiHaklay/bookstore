@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class ProductItemComponent implements OnInit {
   @Input() item!: Book;
+  @Input() gridMode: boolean = false;
   imageUrl!: string;
 
   ngOnInit(): void {

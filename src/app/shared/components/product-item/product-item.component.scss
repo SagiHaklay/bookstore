@@ -1,4 +1,4 @@
-:host {
+.item-container {
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
@@ -6,7 +6,8 @@
     align-items: center;
     padding: 0.5rem;
     width: 100%;
-    
+}
+.list-item-container {
     border-bottom: 1px solid gray;
 }
 img {
@@ -22,7 +23,8 @@ img {
     align-items: center;
 }
 .image-container {
-    height: 6rem;
+    // height: 6rem;
+    height: 10rem;
     width: 100%;
     // background-color: gray;
 }
@@ -41,16 +43,17 @@ img {
 }
 
 @media screen and (min-width: 725px) {
-    :host {
+    .list-item-container {
         flex-direction: row;
         justify-content: space-between;
         height: 4rem;
+        .info-container {
+            flex-direction: row;
+        }
+        .image-container {
+            width: 3rem;
+            height: 100%;
+        }
     }
-    .info-container {
-        flex-direction: row;
-    }
-    .image-container {
-        width: 3rem;
-        height: 100%;
-    }
+    
 }

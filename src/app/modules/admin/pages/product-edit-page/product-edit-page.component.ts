@@ -3,6 +3,7 @@ import { Book } from '../../../../core/models/book.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookData } from '../../../../core/models/book-data.model';
 import { ProductService } from '../../../../core/services/product.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-edit-page',
@@ -39,7 +40,8 @@ export class ProductEditPageComponent implements OnInit {
         this.isConfirmDelete = false;
         this.displayDialogBox = true;
       },
-      error: (err: Error) => {
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
         this.dialogBoxMessage = 'Failed to edit book.';
         this.displayEditForm = false;
         this.isConfirmDelete = false;

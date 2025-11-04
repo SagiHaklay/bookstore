@@ -1,3 +1,4 @@
+<div class="item-container" [ngClass]="{'list-item-container': !gridMode}">
 <div class="info-container">
     <div class="image-container">
         <img  [src]="imageUrl">
@@ -9,3 +10,4 @@
 </div>
 
 <div class="price">{{item.price | currency:'ILS'}}</div>
+</div>

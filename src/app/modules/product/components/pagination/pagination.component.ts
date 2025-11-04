@@ -11,12 +11,13 @@ import { Subscription } from 'rxjs';
 })
 export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
   @Input() products: Book[] = [];
-  pageCapacity: number = 5;
+  pageCapacity: number = 9;
   currentPageNum = 1;
   currentPageContent: Book[] = [];
   pageCount: number = 1;
   pageWindowOffset = 2;
   pageWindow: number[] = [];
+  gridMode: boolean = false;
   queryParamsSub!: Subscription;
   constructor(private route: ActivatedRoute) {}
 
