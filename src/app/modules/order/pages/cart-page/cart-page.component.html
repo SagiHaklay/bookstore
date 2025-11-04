@@ -6,7 +6,7 @@
 <div class="cart-container">
     <div *ngFor="let item of cart; let i = index" class="cart-item">
         <div class="item-header">
-            <button type="button" (click)="onRemoveCartItem(i)" class="btn">Remove</button>
+            <button type="button" (click)="onRemoveCartItem(i)" class="btn btn-secondary">Remove</button>
             <span>{{item.product.name}}</span>
         </div>
         <div class="price-details">
@@ -15,16 +15,16 @@
             <span>X</span>
             <span>{{item.quantity}}</span>
             <span>=</span>
-            <span>{{getItemTotal(item)}}NIS</span>
+            <span>{{getItemTotal(item) | currency:'ILS'}}</span>
         </div>
         
     </div>
     <div class="order-item">
         <span>Total:</span>
-        <span>{{getOrderTotal()}}NIS</span>
+        <span>{{getOrderTotal() | currency:'ILS'}}</span>
     </div>
 </div>
-<button type="submit" class="submit-btn">Checkout</button>
+<button type="submit" class="btn btn-primary">Checkout</button>
 </form>
 <app-dialog-box-modal
     *ngIf="showDialogBox"

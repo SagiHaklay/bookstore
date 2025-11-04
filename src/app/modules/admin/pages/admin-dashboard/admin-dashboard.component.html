@@ -1,6 +1,6 @@
 <h1>Admin Dashboard</h1>
 <div class="actions">
-    <button class="btn" (click)="onClickAddProduct()">Add New Book</button>
+    <button class="btn btn-primary" (click)="onClickAddProduct()">Add New Book</button>
 </div>
 <a *ngFor="let product of products" [routerLink]="['..', 'product', product.id]">
     <app-product-item [item]="product" ></app-product-item>

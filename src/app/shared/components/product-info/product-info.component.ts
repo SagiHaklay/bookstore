@@ -13,6 +13,6 @@ export class ProductInfoComponent implements OnInit {
   imageUrl!: string;
 
   ngOnInit(): void {
-    this.imageUrl = this.product.imageUrl? `${environment.apiUrl}/images/${this.product.imageUrl}` : '';
+    this.imageUrl = this.product.imageUrl? `${environment.apiUrl}/images/${this.product.imageUrl}` : 'noimage.jpeg';
   }
 }

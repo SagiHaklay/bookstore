@@ -32,7 +32,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       return this.products;
     }
     return this.products.filter((product) => {
-      return product.name.toLowerCase().includes(this.searchQuery);
+      return product.name.toLowerCase().includes(this.searchQuery) || product.author.toLowerCase().includes(this.searchQuery);
     });
   }
 
@@ -42,6 +42,10 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       queryParams: {query},
       relativeTo: this.route
     });
+  }
+  onQueryChange(query: string) {
+    this.searchQuery = query;
+    this.searchResults = this.getSearchResults();
   }
 
   ngOnDestroy(): void {

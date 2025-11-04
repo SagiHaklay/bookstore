@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+$bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import "bootstrap-icons/font/bootstrap-icons";
 html {
     font-size: 16px;
 }
@@ -27,19 +30,19 @@ body {
     font-size: 0.8rem;
 }
 
-.btn {
-    background-color: rgb(33, 33, 226);
-    color: white;
-    border-radius: 5px;
-    border: none;
-    padding: 0.3rem;
-    width: 10rem;
-    cursor: pointer;
-}
-.btn:disabled {
-    background-color: #9c9c9c;
-}
+// .btn {
+//     background-color: rgb(33, 33, 226);
+//     color: white;
+//     border-radius: 5px;
+//     border: none;
+//     padding: 0.3rem;
+//     width: 10rem;
+//     cursor: pointer;
+// }
+// .btn:disabled {
+//     background-color: #9c9c9c;
+// }
 
-.submit-btn {
-    @extend .btn;
-}
+// .submit-btn {
+//     @extend .btn;
+// }

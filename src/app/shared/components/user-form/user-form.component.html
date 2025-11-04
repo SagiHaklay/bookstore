@@ -33,7 +33,7 @@
     </div>
     <div *ngIf="userForm.errors && userForm.errors['passwordRepeatError'] && userForm.get('repeatPassword')?.touched" class="error-msg">Passwords must be identical!</div>
     <div class="btn-container">
-        <button class="submit-btn" [disabled]="userForm.invalid" type="submit">Submit</button>
-        <button *ngIf="includeCancel" class="submit-btn" type="button" (click)="onCancelClick()">Cancel</button>
+        <button class="btn btn-primary" [disabled]="userForm.invalid" type="submit">Submit</button>
+        <button *ngIf="includeCancel" class="btn btn-secondary" type="button" (click)="onCancelClick()">Cancel</button>
     </div>
 </form>

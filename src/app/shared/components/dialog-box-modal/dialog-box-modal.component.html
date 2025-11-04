@@ -2,11 +2,11 @@
     <div class="dialog-box">
         <div class="message">{{message}}</div>
         <div *ngIf="!isYesNo" class="btn-container">
-            <button class="btn" (click)="onModalClose()">OK</button>
+            <button class="btn btn-primary" (click)="onModalClose()">OK</button>
         </div>
         <div *ngIf="isYesNo" class="btn-container">
-            <button class="btn" (click)="onClickYes()">Yes</button>
-            <button class="btn" (click)="onModalClose()">No</button>
+            <button class="btn btn-success" (click)="onClickYes()">Yes</button>
+            <button class="btn btn-danger" (click)="onModalClose()">No</button>
         </div>
     </div>
 </app-modal>

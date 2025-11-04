@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserFormComponent } from './components/user-form/user-form.component';
@@ -21,7 +21,8 @@ import { DialogBoxModalComponent } from './components/dialog-box-modal/dialog-bo
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CurrencyPipe
   ],
   exports: [
     ReactiveFormsModule,
@@ -30,7 +31,8 @@ import { DialogBoxModalComponent } from './components/dialog-box-modal/dialog-bo
     ModalComponent,
     ProductItemComponent,
     ProductInfoComponent,
-    DialogBoxModalComponent
+    DialogBoxModalComponent,
+    CurrencyPipe
   ]
 })
 export class SharedModule { }

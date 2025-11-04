@@ -14,13 +14,13 @@
             <span>{{userAccount.email}}</span>
         </div>
         <div class="btn-container">
-            <button class="btn" type="button" (click)="onClickEdit()">Edit</button>
-            <button class="btn" type="button" (click)="onClickChangePassword()">Change Password</button>
+            <button class="btn btn-primary" type="button" (click)="onClickEdit()">Edit</button>
+            <button class="btn btn-primary" type="button" (click)="onClickChangePassword()">Change Password</button>
         </div>
         
     </div>
     <div class="delete-btn-container">
-        <button class="btn" type="button" (click)="onClickDeleteAccount()">Delete Account</button>
+        <button class="btn btn-danger" type="button" (click)="onClickDeleteAccount()">Delete Account</button>
     </div>
 </div>
 <app-modal *ngIf="showModal">

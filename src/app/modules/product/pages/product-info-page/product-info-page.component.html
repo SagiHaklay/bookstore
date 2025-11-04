@@ -1,9 +1,9 @@
-<a [routerLink]="['..']">Back</a>
+<a class="btn btn-link" [routerLink]="['..']">Back</a>
 <app-product-info [product]="product"></app-product-info>
 <div class="order-options">
     <div class="info-item">
         <label for="">Price:</label>
-        <span>{{product.price}}NIS</span>
+        <span>{{product.price | currency:'ILS'}}</span>
     </div>
     <div *ngIf="product.discount" class="info-item">
         <label for="">Discount:</label>
@@ -11,7 +11,7 @@
     </div>
     <div *ngIf="product.discount" class="info-item">
         <label for="">Total:</label>
-        <span>{{product.price * (100 - product.discount) / 100}}NIS</span>
+        <span>{{product.price * (100 - product.discount) / 100 | currency:'ILS'}}</span>
     </div>
     <form [formGroup]="cartForm" (ngSubmit)="onClickAddToCart()">
         <div class="form-group">
@@ -24,7 +24,7 @@
                 {{getQuantityErrorMessaage()}}
             </div>
 
-            <button [disabled]="cartForm.invalid" type="submit" class="submit-btn">Add To Cart</button>
+            <button [disabled]="cartForm.invalid" type="submit" class="btn btn-primary">Add To Cart</button>
         </div>
         
         

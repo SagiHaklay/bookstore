@@ -30,7 +30,7 @@ export class ProductsPageComponent implements OnInit {
       this.searchResults = this.products;
     } else {
       this.searchResults = this.products.filter((product) => {
-        return product.name.toLowerCase().includes(query);
+        return product.name.toLowerCase().includes(query) || product.author.toLowerCase().includes(query);
       });
     }
   }

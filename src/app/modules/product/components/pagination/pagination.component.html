@@ -7,13 +7,15 @@
         routerLink="./" 
         [queryParams]="{page: 1}" 
         queryParamsHandling="merge"
-    >First</a>
+    ><i class="bi bi-chevron-double-left"></i></a>
     <a 
         *ngIf="currentPageNum > 1" 
         routerLink="./" 
         [queryParams]="{page: currentPageNum - 1}" 
         queryParamsHandling="merge"
-    >Previous</a>
+    >
+        <i class="bi bi-chevron-left"></i>
+    </a>
     <a 
         *ngFor="let pageNum of pageWindow" routerLink="./" 
         [queryParams]="{page: pageNum}" 
@@ -26,11 +28,13 @@
         routerLink="./" 
         [queryParams]="{page: currentPageNum + 1}" 
         queryParamsHandling="merge"
-    >Next</a>
+    >
+        <i class="bi bi-chevron-right"></i>
+    </a>
     <a 
         *ngIf="currentPageNum < pageCount" 
         routerLink="./" 
         [queryParams]="{page: pageCount}" 
         queryParamsHandling="merge"
-    >Last</a>
+    ><i class="bi bi-chevron-double-right"></i></a>
 </div>

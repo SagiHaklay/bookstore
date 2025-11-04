@@ -1,4 +1,4 @@
 <form class="search-bar" [formGroup]="searchForm" (ngSubmit)="onSearch()">
     <input type="search" (input)="onQueryChange()" placeholder="Search book..." formControlName="query"/>
-    <button class="submit-btn" type="submit" [disabled]="searchForm.invalid">Search</button>
+    <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">Search</button>
 </form>

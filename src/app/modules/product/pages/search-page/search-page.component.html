@@ -1,4 +1,4 @@
-<app-search-bar [initialQuary]="searchQuery" (searchSubmit)="onSearch($event)"></app-search-bar>
+<app-search-bar [initialQuary]="searchQuery" (queryChange)="onQueryChange($event)" (searchSubmit)="onSearch($event)"></app-search-bar>
 <a [routerLink]="['..']">Back</a>
 <h4>Search results for {{searchQuery}}</h4>
 <div *ngIf="searchResults.length === 0">

@@ -1,5 +1,5 @@
 <div class="image-container">
-    <img *ngIf="product.imageUrl" [src]="imageUrl" />
+    <img [src]="imageUrl" />
 </div>
 <h2 class="title">{{product.name}}</h2>
 <div class="info">
@@ -17,7 +17,7 @@
     </div>
     <div class="info-item">
         <label for="">Price:</label>
-        <span>{{product.price}}NIS</span>
+        <span>{{product.price | currency:'ILS'}}</span>
     </div>
     <div *ngIf="product.discount" class="info-item">
         <label for="">Discount:</label>

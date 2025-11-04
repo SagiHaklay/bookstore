@@ -1,6 +1,6 @@
 <div class="info-container">
     <div class="image-container">
-        <img *ngIf="item.imageUrl" [src]="imageUrl">
+        <img  [src]="imageUrl">
     </div>
     <div class="product-data">
         <div class="product-name">{{item.name}}</div>
@@ -8,4 +8,4 @@
     </div>
 </div>
 
-<div class="price">{{item.price}}NIS</div>
+<div class="price">{{item.price | currency:'ILS'}}</div>
