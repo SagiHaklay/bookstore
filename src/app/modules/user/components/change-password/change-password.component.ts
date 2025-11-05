@@ -20,7 +20,7 @@ export class ChangePasswordComponent implements OnInit {
       validators: [this.passwordRepeatValidator]
     };
     this.passwordForm = this.fb.group({
-      password: this.fb.control('', [Validators.required]),
+      password: this.fb.control('', [Validators.required, this.passwordValidator]),
       repeatPassword: this.fb.control('', [Validators.required]),
       oldPassword: this.fb.control('', [Validators.required])
     }, options);
@@ -60,7 +60,26 @@ export class ChangePasswordComponent implements OnInit {
     }
     return 'Invalid old password';
   }
-
+  passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const password: string = control.value;
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{6,}$/;
+    if (!re.test(password)) {
+      return {
+        formatError: true
+      }
+    }
+    return null;
+  }
+  getPasswordError() {
+    const password = this.passwordForm.get('password')?.value;
+    if (password?.errors && password.errors['required']) {
+      return 'Password required';
+    }
+    if (password?.errors && password.errors['formatError']) {
+      return "Password must be at least 6 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+    }
+    return 'Password error';
+  }
   onFormSubmit() {
     const newPassword = this.passwordForm.get('password')?.value;
     const oldPassword = this.passwordForm.get('oldPassword')?.value;

@@ -21,7 +21,7 @@
         <div 
             *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" 
             class="error-msg"
-        >Password required!</div>
+        >{{getPasswordError()}}</div>
     </div>
     <div *ngIf="includePassword" class="form-group">
         <label for="repeatPassword">Repeat Password:</label>
