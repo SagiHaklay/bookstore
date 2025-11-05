@@ -7,14 +7,15 @@
     .title {
         margin: 0;
         padding: 0;
+        text-align: center;
     }
     
 }
 .account {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    
+    gap: 1rem;
+    padding: 1rem;
 
     .data-field, .btn-container {
         display: flex;
@@ -31,7 +32,7 @@
         grid-template-rows: 3rem auto;
         grid-template-areas: 
             'title delete'
-            'account account';
+            'account .';
         .title {
             grid-area: title;
         }
@@ -40,8 +41,10 @@
         }
         .account {
             grid-area: account;
+            justify-content: center;
             .data-field, .btn-container {
                 flex-direction: row;
+                justify-content: center;
             }
         }
     }

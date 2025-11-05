@@ -17,7 +17,7 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
   pageCount: number = 1;
   pageWindowOffset = 2;
   pageWindow: number[] = [];
-  gridMode: boolean = false;
+  gridMode: boolean = true;
   queryParamsSub!: Subscription;
   constructor(private route: ActivatedRoute) {}
 
@@ -49,5 +49,10 @@ export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     this.queryParamsSub.unsubscribe();
+  }
+
+  onChangeLayout(event: any) {
+    const layout = event.target.value;
+    this.gridMode = layout === 'grid';
   }
 }

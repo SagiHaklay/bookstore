@@ -7,17 +7,29 @@ a {
 .navigation {
     display: flex;
     gap: 0.5rem;
+    padding: 0.5rem;
+    justify-content: center;
 }
 
 .curr-page {
     color: rgb(39, 25, 238);
     font-weight: 700;
 }
+.layout-selector {
+    display: none;
+}
 
 @media screen and (min-width: 725px) {
+    .layout-selector {
+        display: block;
+        width: 10rem;
+    }
     .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        // display: grid;
+        // grid-template-columns: 1fr 1fr 1fr;
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
         gap: 0.5rem;
     }
 }

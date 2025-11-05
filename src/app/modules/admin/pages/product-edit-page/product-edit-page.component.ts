@@ -41,8 +41,7 @@ export class ProductEditPageComponent implements OnInit {
         this.displayDialogBox = true;
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err);
-        this.dialogBoxMessage = 'Failed to edit book.';
+        this.dialogBoxMessage = err.error;
         this.displayEditForm = false;
         this.isConfirmDelete = false;
         this.displayDialogBox = true;

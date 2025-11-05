@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BookData } from '../../../../core/models/book-data.model';
 import { ProductService } from '../../../../core/services/product.service';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -52,9 +53,9 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         this.dialogBoxMessage = 'Book added successfully';
         this.displayDialogBox = true;
       },
-      error: (err: Error) => {
+      error: (err: HttpErrorResponse) => {
         this.displayAddProductForm = false;
-        this.dialogBoxMessage = 'Failed to add book.';
+        this.dialogBoxMessage = err.error;
         this.displayDialogBox = true;
       }
     });

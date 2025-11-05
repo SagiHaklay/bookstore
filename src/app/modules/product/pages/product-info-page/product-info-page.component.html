@@ -17,7 +17,7 @@
         <div class="form-group">
             <div class="info-item">
                 <label for="quantity">Quantity:</label>
-                <input class="quantity" type="number" id="quantity" formControlName="quantity" />
+                <input class="quantity form-control" type="number" id="quantity" formControlName="quantity" />
             </div>
             
             <div *ngIf="cartForm.get('quantity')?.invalid && cartForm.get('quantity')?.touched" class="error-msg">

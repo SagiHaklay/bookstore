@@ -1,7 +1,13 @@
-<div class="grid-container">
-<a *ngFor="let product of currentPageContent" [routerLink]="['/product', product.id]">
-    <app-product-item [item]="product" [gridMode]="true"></app-product-item>
-</a>
+<div class="layout-selector">
+    <select id="layoutSelector" name="product-layout" class="form-select" (change)="onChangeLayout($event)">
+        <option value="grid" selected>Grid Layout</option>
+        <option value="list">List Layout</option>
+    </select>
+</div>
+<div [ngClass]="{'grid-container': gridMode}">
+    <a *ngFor="let product of currentPageContent" [routerLink]="['/product', product.id]">
+        <app-product-item [item]="product" [gridMode]="gridMode"></app-product-item>
+    </a>
 </div>
 <div *ngIf="pageCount >= 2" class="navigation">
     <a 
