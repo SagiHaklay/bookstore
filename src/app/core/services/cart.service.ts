@@ -79,7 +79,7 @@ export class CartService {
   }
   removeFromCart(removeIndex: number) {
     this._cartItems.splice(removeIndex, 1);
-	localStorage.setItem('carts', JSON.stringify(this._cartItems));
+	  localStorage.setItem('carts', JSON.stringify(this._cartItems));
     this._cartSubject.next(this._cartItems.slice());
   }
   removeFromUserCart(userId: string, productId: string) {
@@ -118,5 +118,16 @@ export class CartService {
     }, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
+  }
+  updateCartItemQuantity(index: number, quantity: number) {
+    if (index < 0 || index > this._cartItems.length) return;
+    this._cartItems[index].quantity = quantity;
+    localStorage.setItem('carts', JSON.stringify(this._cartItems));
+    this._cartSubject.next(this._cartItems.slice());
+  }
+  setLocalCart(cart: CartItem[]) {
+    this._cartItems = cart;
+    localStorage.setItem('carts', JSON.stringify(this._cartItems));
+    this._cartSubject.next(this._cartItems.slice());
   }
 }

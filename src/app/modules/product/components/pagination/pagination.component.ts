@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class PaginationComponent implements OnInit, OnDestroy, OnChanges {
   @Input() products: Book[] = [];
-  pageCapacity: number = 9;
+  pageCapacity: number = 5;
   currentPageNum = 1;
   currentPageContent: Book[] = [];
   pageCount: number = 1;

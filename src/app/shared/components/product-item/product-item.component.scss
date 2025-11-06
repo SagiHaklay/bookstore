@@ -40,16 +40,26 @@ img {
         font-size: 0.8rem;
         color: gray;
     }
+    
 }
-
+.price {
+    display: flex;
+    flex-direction: column;
+}
+.line-through {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 0.8rem;
+}
 @media screen and (min-width: 725px) {
+    $item-width: 22rem;
     .grid-item-container {
-        width: 25rem;
+        width: $item-width;
         height: 100%;
-        
+        padding: 0;
         border: none;
         .image-container {
-            height: 25rem;
+            height: $item-width;
         }
     }
     .list-item-container {

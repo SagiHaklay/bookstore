@@ -71,7 +71,7 @@ export class ChangePasswordComponent implements OnInit {
     return null;
   }
   getPasswordError() {
-    const password = this.passwordForm.get('password')?.value;
+    const password = this.passwordForm.get('password');
     if (password?.errors && password.errors['required']) {
       return 'Password required';
     }

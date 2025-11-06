@@ -39,7 +39,7 @@ export class ProductInfoPageComponent implements OnInit {
           this.showAddToCartResult(true);
         },
         error: (err: Error) => {
-          this.showAddToCartResult(false, err.message);
+          this.showAddToCartResult(false, 'Failed to add book to cart.');
         }
       });
     } else {

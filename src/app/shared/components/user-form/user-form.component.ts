@@ -65,7 +65,7 @@ export class UserFormComponent implements OnInit {
     return 'E-mail error';
   }
   getPasswordError() {
-    const password = this.userForm.get('password')?.value;
+    const password = this.userForm.get('password');
     if (password?.errors && password.errors['required']) {
       return 'Password required';
     }

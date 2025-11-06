@@ -19,10 +19,12 @@ export class UserSignupPageComponent {
       this.userService.addUser(username, password, email).subscribe({
         next: () => {
           // console.log(res);
-          this.router.navigate(['user', 'login']);
+          this.router.navigate(['user', 'login'], {
+            queryParams: {registered: true}
+          });
         },
         error: (err: Error) => {
-          this.errorMessage = err.message;
+          this.errorMessage = 'User registration failed.';
         }
       });
     }

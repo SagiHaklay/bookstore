@@ -5,6 +5,8 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { take, Subscription } from 'rxjs';
 import { CartService } from '../../../../core/services/cart.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { environment } from '../../../../../environments/environment';
+
 
 @Component({
   selector: 'app-cart-page',
@@ -20,6 +22,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
   dialogBoxMessage: string = '';
   isYesNo = false;
   queryParamsSub!: Subscription;
+  isRemove = false;
+  removeIndex: number = -1;
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
@@ -29,13 +33,16 @@ export class CartPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
       this.cart = data['cart'];
+      for (let item of this.cart) {
+        item.product.imageUrl = item.product.imageUrl? `${environment.apiUrl}/images/${item.product.imageUrl}` : 'noimage.jpeg';
+      }
     });
 	this.queryParamsSub = this.route.queryParams.subscribe((params) => {
       if (params['cartSaveFailed']) {
-		  this.isYesNo = false;
-          this.dialogBoxMessage = 'Failed to save guest cart.';
-          this.showDialogBox = true;
-	  }
+		    this.isYesNo = false;
+        this.dialogBoxMessage = 'Failed to save guest cart.';
+        this.showDialogBox = true;
+	    }
     });
     this.userId = localStorage.getItem('userId');
     this.orderForm = this.fb.group({});
@@ -77,8 +84,37 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
   onConfirmLogin() {
     this.router.navigate(['/user', 'login'], {
-		queryParams: {saveCart: true}
-	});
+      queryParams: {saveCart: true}
+    });
+  }
+  onConfirm() {
+    if (this.isRemove) {
+      this.onRemoveCartItem(this.removeIndex);
+    } else {
+      if (this.userId === null) {
+        this.onConfirmLogin();
+      } else {
+        this.onCheckout();
+      }
+    }
+  }
+  onClickRemove(index: number) {
+    this.removeIndex = index;
+    this.isRemove = true;
+    this.isYesNo = true;
+    this.dialogBoxMessage = 'Would you like to remove this item from the cart?';
+    this.showDialogBox = true;
+  }
+  onClickCheckout() {
+    this.isRemove = false;
+    this.isYesNo = true;
+    if (this.userId === null) {
+      this.dialogBoxMessage = 'You must be logged in to proceed with the order. Would you like to log in?';
+    } else {
+      this.dialogBoxMessage = 'Would you like to order the current cart?';
+    }
+    
+    this.showDialogBox = true;
   }
   onDialogBoxClose() {
     this.showDialogBox = false;
@@ -97,7 +133,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
       });
     } else {
       this.cartService.removeFromCart(index);
-	  this.cart = this.cartService.guestCart;
+	    this.cart = this.cartService.guestCart;
     }
 
   }

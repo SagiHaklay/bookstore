@@ -14,8 +14,13 @@ export class UserLoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
+      if (params['registered']) {
+        this.showDialogBox = true;
+        this.dialogBoxMessage = 'User registered successfully.';
+      }
       if (params['expired']) {
         this.showDialogBox = true;
+        this.dialogBoxMessage = 'Authentication expired. Please log in again.';
       }
     });
   }

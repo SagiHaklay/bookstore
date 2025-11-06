@@ -13,9 +13,14 @@ export class DialogBoxModalComponent {
   @Output() confirm = new EventEmitter();
 
   onModalClose() {
-    this.close.emit();
+    if (!this.isYesNo)
+      this.close.emit();
   }
   onClickYes() {
     this.confirm.emit();
+    this.close.emit();
+  }
+  onClickNo() {
+    this.close.emit();
   }
 }

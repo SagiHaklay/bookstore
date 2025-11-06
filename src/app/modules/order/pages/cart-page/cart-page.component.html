@@ -2,19 +2,30 @@
 <div *ngIf="cart.length === 0">
     Your cart is empty.
 </div>
-<form *ngIf="cart.length !== 0" class="form" [formGroup]="orderForm" (ngSubmit)="onCheckout()">
+<form *ngIf="cart.length !== 0" class="form" [formGroup]="orderForm" (ngSubmit)="onClickCheckout()">
 <div class="cart-container">
     <div *ngFor="let item of cart; let i = index" class="cart-item">
         <div class="item-header">
-            <button type="button" (click)="onRemoveCartItem(i)" class="btn btn-secondary">Remove</button>
+            <button type="button" (click)="onClickRemove(i)" class="remove-btn"><i class="bi bi-x-lg"></i></button>
             <span>{{item.product.name}}</span>
         </div>
+        <div class="image-container">
+            <img [src]="item.product.imageUrl" alt=""/>
+        </div>
         <div class="price-details">
-            <span [ngClass]="{'line-through': item.product.discount}">{{item.product.price}}</span>
-            <span *ngIf="item.product.discount">{{item.product.price * (100 - item.product.discount) / 100}}</span>
-            <span>X</span>
-            <span>{{item.quantity}}</span>
-            <span>=</span>
+            <div class="price">
+                
+                <span *ngIf="item.product.discount">{{item.product.price * (100 - item.product.discount) / 100 | currency:'ILS'}}</span>
+                <span [ngClass]="{'line-through': item.product.discount}">{{item.product.price | currency:'ILS'}}</span>
+            </div>
+            
+            <!-- <span>X</span> -->
+            <span class="quantity-container">
+                <label for="">Quantity: </label>
+                <input class="form-control quantity" type="number" [value]="item.quantity" name="" id="">
+            </span>
+            
+            <!-- <span>=</span> -->
             <span>{{getItemTotal(item) | currency:'ILS'}}</span>
         </div>
         
@@ -30,6 +41,6 @@
     *ngIf="showDialogBox"
     [message]="dialogBoxMessage"
     [isYesNo]="isYesNo"
-    (confirm)="onConfirmLogin()"
+    (confirm)="onConfirm()"
     (close)="onDialogBoxClose()"
 ></app-dialog-box-modal>

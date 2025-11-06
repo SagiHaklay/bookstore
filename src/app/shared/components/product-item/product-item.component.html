@@ -9,5 +9,9 @@
     </div>
 </div>
 
-<div class="price">{{item.price | currency:'ILS'}}</div>
+<div class="price">
+    <span *ngIf="item.discount">{{item.price * (100 - item.discount) / 100 | currency:'ILS'}}</span>
+    <span [ngClass]="{'line-through': item.discount}">{{item.price | currency:'ILS'}}</span>
+    
+</div>
 </div>
