@@ -4,13 +4,13 @@
 </div>
 <form *ngIf="cart.length !== 0" class="form" [formGroup]="orderForm" (ngSubmit)="onClickCheckout()">
 <div class="cart-container">
-    <div *ngFor="let item of cart; let i = index" class="cart-item">
+    <div *ngFor="let item of cart; let i = index" class="cart-item" formArrayName="quantities">
         <div class="item-header">
             <button type="button" (click)="onClickRemove(i)" class="remove-btn"><i class="bi bi-x-lg"></i></button>
             <span>{{item.product.name}}</span>
         </div>
         <div class="image-container">
-            <img [src]="item.product.imageUrl" alt=""/>
+            <img [src]="imageUrls[i]" alt=""/>
         </div>
         <div class="price-details">
             <div class="price">
@@ -22,7 +22,8 @@
             <!-- <span>X</span> -->
             <span class="quantity-container">
                 <label for="">Quantity: </label>
-                <input class="form-control quantity" type="number" [value]="item.quantity" name="" id="">
+                <input class="form-control quantity" type="number" [value]="item.quantity" [formControlName]="i" (change)="onChangeQuantity(i)" />
+                <span *ngIf="quantities.at(i).invalid && quantities.at(i).touched" class="error-msg">{{getQuantityErrorMessage(i)}}</span>
             </span>
             
             <!-- <span>=</span> -->
@@ -35,7 +36,7 @@
         <span>{{getOrderTotal() | currency:'ILS'}}</span>
     </div>
 </div>
-<button type="submit" class="btn btn-primary">Checkout</button>
+<button [disabled]="orderForm.invalid" type="submit" class="btn btn-primary">Checkout</button>
 </form>
 <app-dialog-box-modal
     *ngIf="showDialogBox"

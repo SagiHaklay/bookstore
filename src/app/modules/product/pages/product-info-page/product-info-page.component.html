@@ -21,7 +21,7 @@
             </div>
             
             <div *ngIf="cartForm.get('quantity')?.invalid && cartForm.get('quantity')?.touched" class="error-msg">
-                {{getQuantityErrorMessaage()}}
+                {{getQuantityErrorMessage()}}
             </div>
 
             <button [disabled]="cartForm.invalid" type="submit" class="btn btn-primary">Add To Cart</button>

@@ -4,7 +4,7 @@ import { CartItem } from '../../../../core/models/cart-item.model';
 import { AuthService } from '../../../../core/services/auth.service';
 import { take, Subscription } from 'rxjs';
 import { CartService } from '../../../../core/services/cart.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
 
 
@@ -24,6 +24,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
   queryParamsSub!: Subscription;
   isRemove = false;
   removeIndex: number = -1;
+  imageUrls: string [] = [];
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
@@ -31,13 +32,18 @@ export class CartPageComponent implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {}
   ngOnInit(): void {
+    this.orderForm = this.fb.group({
+      quantities: this.fb.array([])
+    });
     this.route.data.subscribe((data) => {
       this.cart = data['cart'];
       for (let item of this.cart) {
-        item.product.imageUrl = item.product.imageUrl? `${environment.apiUrl}/images/${item.product.imageUrl}` : 'noimage.jpeg';
+        const imageUrl = item.product.imageUrl? `${environment.apiUrl}/images/${item.product.imageUrl}` : 'noimage.jpeg';
+        this.imageUrls.push(imageUrl);
+        this.quantities.push(this.fb.control(item.quantity, [Validators.required, Validators.min(1)]));
       }
     });
-	this.queryParamsSub = this.route.queryParams.subscribe((params) => {
+	  this.queryParamsSub = this.route.queryParams.subscribe((params) => {
       if (params['cartSaveFailed']) {
 		    this.isYesNo = false;
         this.dialogBoxMessage = 'Failed to save guest cart.';
@@ -45,10 +51,23 @@ export class CartPageComponent implements OnInit, OnDestroy {
 	    }
     });
     this.userId = localStorage.getItem('userId');
-    this.orderForm = this.fb.group({});
+    
     // this.authService.currentUserId.pipe(take(1)).subscribe((id) => {
     //   this.userId = id;
     // });
+  }
+  get quantities() {
+    return this.orderForm.get('quantities') as FormArray;
+  }
+  getQuantityErrorMessage(index: number) {
+    const errors = this.quantities.at(index).errors;
+    if (errors && errors['required']) {
+      return 'Quantity required!';
+    }
+    if (errors && errors['min']) {
+      return 'Quantity must be at least 1!';
+    }
+    return 'Invalid quantity';
   }
   ngOnDestroy(): void {
     this.queryParamsSub.unsubscribe();
@@ -136,5 +155,25 @@ export class CartPageComponent implements OnInit, OnDestroy {
 	    this.cart = this.cartService.guestCart;
     }
 
+  }
+
+  onChangeQuantity(index: number) {
+    const newQuantity = this.quantities.at(index).value;
+    if (this.userId === null) {
+      this.cartService.updateCartItemQuantity(index, newQuantity);
+      this.cart = this.cartService.guestCart;
+    } else {
+      const productId = this.cart[index].product.id;
+      this.cartService.updateUserCartQuantity(this.userId, productId, newQuantity).subscribe({
+        next: (res) => {
+          this.cart[index].quantity = res.quantity;
+        },
+        error: () => {
+          this.isYesNo = false;
+          this.dialogBoxMessage = 'Failed to update quantity.';
+          this.showDialogBox = true;
+        }
+      });
+    }
   }
 }

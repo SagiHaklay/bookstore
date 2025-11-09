@@ -125,6 +125,14 @@ export class CartService {
     localStorage.setItem('carts', JSON.stringify(this._cartItems));
     this._cartSubject.next(this._cartItems.slice());
   }
+  updateUserCartQuantity(userId: string, productId: string, quantity: number) {
+    return this.http.patch<CartItem>(`${environment.apiUrl}/cart/${userId}`, {
+      productId,
+      quantity
+    }, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
   setLocalCart(cart: CartItem[]) {
     this._cartItems = cart;
     localStorage.setItem('carts', JSON.stringify(this._cartItems));

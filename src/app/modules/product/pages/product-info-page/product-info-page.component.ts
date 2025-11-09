@@ -59,7 +59,7 @@ export class ProductInfoPageComponent implements OnInit {
     this.dialogBoxMessage = isSuccess? 'Product successfully added to cart.' : errorMessage;
     this.showDialogBox = true;
   }
-  getQuantityErrorMessaage() {
+  getQuantityErrorMessage() {
     const errors = this.cartForm.get('quantity')?.errors;
     if (errors && errors['required']) {
       return 'Quantity required!';
